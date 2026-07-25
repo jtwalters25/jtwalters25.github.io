@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeremiah Walters — Developer</title>
+  <style>
+    :root {
+      --accent: #1b2a4a;
+      --accent-hover: #2c4070;
+      --bg: #fafafa;
+      --bg-card: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #555555;
+      --border: #ddd;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-hover: 0 10px 24px rgba(27,42,74,0.12);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #111111;
+        --bg-card: #1a1a1a;
+        --text: #e8e8e8;
+        --text-muted: #999999;
+        --border: #2a2a2a;
+        --shadow: 0 1px 3px rgba(0,0,0,0.4);
+        --shadow-hover: 0 10px 24px rgba(27,42,74,0.35);
+      }
+    }
+
+    [data-theme="dark"] {
+      --bg: #111111;
+      --bg-card: #1a1a1a;
+      --text: #e8e8e8;
+      --text-muted: #999999;
+      --border: #2a2a2a;
+      --shadow: 0 1px 3px rgba(0,0,0,0.4);
+      --shadow-hover: 0 10px 24px rgba(27,42,74,0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Times New Roman', Times, Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    a { color: inherit; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-family: 'Courier New', monospace;
+      letter-spacing: -0.02em;
+    }
+
+    nav .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    nav .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav .nav-links a:hover { color: var(--accent); }
+
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+
+    .hero h1 span { color: var(--accent); font-style: normal; }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      display: block;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease, translate 0.6s ease;
+      opacity: 0;
+      translate: 0 20px;
+    }
+
+    .card.visible {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+    }
+
+    .card .lang {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      background: transparent;
+      border: 1px solid var(--accent);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 0.5rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .socials {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+    }
+
+    footer .socials a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    footer .socials a:hover { color: var(--accent); }
+
+    footer .copy {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .writing {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+
+    .writing h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .writing h2 a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      margin-left: auto;
+    }
+
+    .writing h2 a:hover { text-decoration: underline; }
+
+    .articles {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .article-card {
+      display: block;
+      text-decoration: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease, translate 0.6s ease;
+      opacity: 0;
+      translate: 0 20px;
+    }
+
+    .article-card.visible {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    .article-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .article-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .article-card .meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .writing .empty {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      .projects { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.5rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="https://github.com/jtwalters25" class="logo">@jtwalters25</a>
+    <ul class="nav-links">
+      <li><a href="https://github.com/jtwalters25">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jeremiahwalters">LinkedIn</a></li>
+      <li><a href="https://x.com/Afrotechnician">Twitter</a></li>
+      <li><button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode">◐</button></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Hey, I'm <span>Jeremiah Walters</span></h1>
+    <p>Senior Software Engineer @Microsoft — building AI agent platforms and the evaluation systems that keep them honest.</p>
+  </section>
+
+  <section class="projects">
+    <a class="card" href="https://github.com/jtwalters25/clause" target="_blank" rel="noopener">
+      <span class="lang">TypeScript</span>
+      <h3>Clause</h3>
+      <p>Contract-clause intelligence with semantic playbook matching and Kayenta-style canary gates for safe model rollout.</p>
+    </a>
+    <a class="card" href="https://github.com/jtwalters25/echo" target="_blank" rel="noopener">
+      <span class="lang">TypeScript</span>
+      <h3>Echo</h3>
+      <p>Support-ticket dedup and resolution finder using pgvector retrieval with offline replay evaluation.</p>
+    </a>
+    <a class="card" href="https://github.com/jtwalters25/readiness-as-code" target="_blank" rel="noopener">
+      <span class="lang">Python</span>
+      <h3>Readiness-as-Code</h3>
+      <p>Continuous review compliance as a folder in your repo — JSON definitions, Python scanner, and CI template.</p>
+    </a>
+    <a class="card" href="https://github.com/jtwalters25/intent-engine" target="_blank" rel="noopener">
+      <span class="lang">Python</span>
+      <h3>Intent Engine</h3>
+      <p>Deterministic, explainable intent-aware re-ranking across streaming, e-commerce, and ride matching.</p>
+    </a>
+  </section>
+
+  <section class="writing">
+    <h2>Writing <a href="https://medium.com/@Jtwalters25" target="_blank" rel="noopener">View all on Medium →</a></h2>
+    <div class="articles" id="articles">
+      <p class="empty">Loading articles...</p>
+    </div>
+  </section>
+
+  <footer>
+    <ul class="socials">
+      <li><a href="https://github.com/jtwalters25">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jeremiahwalters">LinkedIn</a></li>
+      <li><a href="https://x.com/Afrotechnician">@Afrotechnician</a></li>
+    </ul>
+    <span class="copy">&copy; 2026 Jeremiah Walters</span>
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    const btn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+
+    function getSystemTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      btn.textContent = theme === 'dark' ? '◑' : '◐';
+    }
+
+    const saved = localStorage.getItem('theme');
+    if (saved) applyTheme(saved);
+
+    btn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || getSystemTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem('theme', next);
+    });
+
+    // Scroll-triggered fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 100}ms`;
+      observer.observe(card);
+    });
+
+    // Fetch Medium RSS via public CORS proxy
+    async function loadArticles() {
+      const container = document.getElementById('articles');
+      const FEED_URL = 'https://medium.com/feed/@Jtwalters25';
+      const PROXY = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(FEED_URL)}`;
+
+      try {
+        const res = await fetch(PROXY);
+        const data = await res.json();
+
+        if (data.status !== 'ok' || !data.items || data.items.length === 0) {
+          container.innerHTML = '<p class="empty">No articles yet — check back soon.</p>';
+          return;
+        }
+
+        container.innerHTML = data.items.slice(0, 4).map((item) => {
+          const date = new Date(item.pubDate).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric'
+          });
+          return `<a class="article-card" href="${item.link}" target="_blank" rel="noopener">
+            <h3>${item.title}</h3>
+            <span class="meta">${date}</span>
+          </a>`;
+        }).join('');
+
+        // Animate article cards
+        container.querySelectorAll('.article-card').forEach((card, i) => {
+          card.style.transitionDelay = `${i * 100}ms`;
+          observer.observe(card);
+        });
+      } catch (e) {
+        container.innerHTML = '<p class="empty">No articles yet — check back soon.</p>';
+      }
+    }
+
+    loadArticles();
+  </script>
+</body>
+</html>
