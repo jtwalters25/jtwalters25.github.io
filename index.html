@@ -134,18 +134,6 @@
       margin: 0 auto;
     }
 
-    .hero .caret {
-      display: inline-block;
-      color: var(--accent);
-      font-weight: 300;
-      animation: blink 1s step-end infinite;
-      margin-left: 2px;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
     .divider {
       margin-top: 2rem;
       font-size: 0.9rem;
@@ -172,6 +160,7 @@
       box-shadow: var(--shadow);
       text-decoration: none;
       display: block;
+      position: relative;
       transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease, translate 0.6s ease;
       opacity: 0;
       translate: 0 20px;
@@ -222,6 +211,42 @@
     .card p {
       font-size: 0.9rem;
       color: var(--text-muted);
+    }
+
+    /* Card title link stretched to keep the whole card clickable (see Intent Engine) */
+    .card-title-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .card-title-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .demo-link {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin-top: 0.85rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .demo-link:hover {
+      background: var(--accent);
+      color: var(--bg-card);
     }
 
     footer {
@@ -292,196 +317,40 @@
 
     .writing h2 a:hover { text-decoration: underline; }
 
-    /* Book component */
-    .book-wrapper {
-      perspective: 1800px;
-      display: flex;
-      justify-content: center;
-      padding: 1rem 0;
-    }
-
-    .book {
-      position: relative;
-      width: 100%;
-      max-width: 720px;
-      height: 320px;
-      display: flex;
-      transform-style: preserve-3d;
-    }
-
-    .book-spine {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--border);
-      transform: translateX(-50%);
-      z-index: 10;
-    }
-
-    .book-page {
-      position: absolute;
-      top: 0;
-      width: 50%;
-      height: 100%;
-      background: var(--bg-paper);
-      border: 1px solid var(--border-paper);
-      padding: 2rem 2.5rem;
+    .writing-list {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      backface-visibility: hidden;
-      transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1),
-                  box-shadow 0.6s ease;
-      transform-origin: right center;
-      box-shadow: var(--shadow), inset 0 0 40px rgba(139,119,90,0.04);
+      gap: 0.9rem;
     }
 
-    /* Dog-ear on top-right of right page */
-    .book-page--right::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 24px;
-      height: 24px;
-      background: linear-gradient(135deg, var(--bg) 50%, var(--border-paper) 50%, var(--bg-paper) 52%);
-      border-bottom-left-radius: 4px;
+    .writing-list li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.9rem;
     }
 
-    /* Subtle bent bottom-left corner on left page */
-    .book-page--left::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 18px;
-      height: 18px;
-      background: linear-gradient(315deg, var(--bg) 50%, var(--border-paper) 50%, var(--bg-paper) 52%);
-      border-top-right-radius: 3px;
-    }
+    .writing-list li:last-child { border-bottom: none; padding-bottom: 0; }
 
-    /* Aged paper edge shadow on inner sides */
-    .book-page--left {
-      left: 0;
-      border-radius: 4px 0 0 4px;
-      border-right: none;
-      transform-origin: right center;
-      box-shadow: var(--shadow), inset -8px 0 12px -8px rgba(139,119,90,0.08);
-    }
-
-    .book-page--right {
-      left: 50%;
-      border-radius: 0 4px 4px 0;
-      border-left: none;
-      transform-origin: left center;
-      box-shadow: var(--shadow), inset 8px 0 12px -8px rgba(139,119,90,0.08);
-    }
-
-    .book-page--turning {
-      transform: rotateY(-180deg);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-    }
-
-    .book-page .page-number {
-      font-family: 'Courier New', monospace;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      position: absolute;
-      bottom: 1rem;
-    }
-
-    .book-page--left .page-number { left: 2.5rem; }
-    .book-page--right .page-number { right: 2.5rem; }
-
-    .book-page h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+    .writing-list a {
       color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.2s;
     }
 
-    .book-page .article-date {
-      font-size: 0.75rem;
+    .writing-list a:hover { color: var(--accent); text-decoration: underline; }
+
+    .writing-list .writing-date {
+      font-family: 'Courier New', monospace;
+      font-size: 0.72rem;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 0.75rem;
-      font-family: 'Courier New', monospace;
-    }
-
-    .book-page .article-excerpt {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .book-page .read-link {
-      margin-top: auto;
-      padding-top: 1rem;
-      font-size: 0.8rem;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .book-page .read-link:hover { text-decoration: underline; }
-
-    .book-nav {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.25rem;
-      align-items: center;
-    }
-
-    .book-nav button {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      color: var(--text);
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .book-nav button:hover { border-color: var(--accent); }
-    .book-nav button:disabled { opacity: 0.3; cursor: default; }
-
-    .book-nav .page-indicator {
-      font-family: 'Courier New', monospace;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .book .empty-page {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-style: italic;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 700px) {
-      .book { height: 400px; flex-direction: column; }
-      .book-page { width: 100%; position: relative; left: 0; height: 50%; }
-      .book-page--left { border-radius: 4px 4px 0 0; border-right: 1px solid var(--border); border-bottom: none; }
-      .book-page--right { border-radius: 0 0 4px 4px; border-left: 1px solid var(--border); border-top: none; }
-      .book-spine { left: 0; right: 0; top: 50%; bottom: auto; width: 100%; height: 1px; transform: none; }
-    }
-
-    .articles { display: none; }
-    .article-card { display: none; }
-
-    .writing .empty {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      font-style: italic;
-      text-align: center;
+      white-space: nowrap;
     }
 
     @media (max-width: 600px) {
@@ -504,7 +373,7 @@
 
   <section class="hero">
     <h1>Hey, I'm <span>Jeremiah Walters</span></h1>
-    <p>Senior Software Engineer @Microsoft — building AI agent platforms and the evaluation systems that keep them honest.<span class="caret">|</span></p>
+    <p>Senior Software Engineer @Microsoft — building AI agent platforms and the evaluation systems that keep them honest.</p>
     <div class="divider">— · —</div>
   </section>
 
@@ -512,43 +381,42 @@
     <a class="card" href="https://github.com/jtwalters25/clause" target="_blank" rel="noopener">
       <span class="lang">TypeScript</span>
       <h3>Clause</h3>
-      <p>Contract-clause intelligence with semantic playbook matching and Kayenta-style canary gates for safe model rollout.</p>
+      <p>Contract-clause intelligence with a demonstrably sensitive release gate: nudge the decision threshold and accuracy drops ~11 points, so the Kayenta-style canary fails on purpose. Semantic playbook matching underneath.</p>
     </a>
     <a class="card" href="https://github.com/jtwalters25/echo" target="_blank" rel="noopener">
       <span class="lang">TypeScript</span>
       <h3>Echo</h3>
-      <p>Support-ticket dedup and resolution finder using pgvector retrieval with offline replay evaluation.</p>
+      <p>Support-ticket dedup and resolution finder using pgvector retrieval, with offline replay evaluation wired as a CI gate that blocks the merge on quality regression.</p>
     </a>
     <a class="card" href="https://github.com/jtwalters25/readiness-as-code" target="_blank" rel="noopener">
       <span class="lang">Python</span>
       <h3>Readiness-as-Code</h3>
       <p>Continuous review compliance as a folder in your repo — JSON definitions, Python scanner, and CI template.</p>
     </a>
-    <a class="card" href="https://github.com/jtwalters25/intent-engine" target="_blank" rel="noopener">
+    <div class="card">
       <span class="lang">Python</span>
-      <h3>Intent Engine</h3>
+      <h3><a class="card-title-link" href="https://github.com/jtwalters25/intent-engine" target="_blank" rel="noopener">Intent Engine</a></h3>
       <p>Deterministic, explainable intent-aware re-ranking across streaming, e-commerce, and ride matching.</p>
-    </a>
+      <a class="demo-link" href="https://intentengine.vercel.app" target="_blank" rel="noopener">Live demo ↗</a>
+    </div>
   </section>
 
   <section class="writing">
     <h2>Writing <a href="https://medium.com/@Jtwalters25" target="_blank" rel="noopener">View all on Medium →</a></h2>
-    <div class="book-wrapper">
-      <div class="book" id="book">
-        <div class="book-spine"></div>
-        <div class="book-page book-page--left empty-page">
-          <p class="empty">Loading...</p>
-        </div>
-        <div class="book-page book-page--right empty-page">
-          <p class="empty"></p>
-        </div>
-      </div>
-    </div>
-    <div class="book-nav" id="bookNav" style="display:none;">
-      <button id="prevPage" aria-label="Previous page">&larr; Prev</button>
-      <span class="page-indicator" id="pageIndicator"></span>
-      <button id="nextPage" aria-label="Next page">Next &rarr;</button>
-    </div>
+    <ul class="writing-list">
+      <li>
+        <a href="https://medium.com/@Jtwalters25/in-my-element-at-mancode-bc5773490bf5" target="_blank" rel="noopener">In My Element at MANCODE</a>
+        <span class="writing-date">Oct 2018</span>
+      </li>
+      <li>
+        <a href="https://medium.com/@Jtwalters25/the-path-to-a-better-life-7c5d09ef8b97" target="_blank" rel="noopener">The Path to a Better Life</a>
+        <span class="writing-date">Oct 2018</span>
+      </li>
+      <li>
+        <a href="https://medium.com/@Jtwalters25/meet-jeremiah-from-bartender-to-azure-customer-support-engineer-7f62e2b4e529" target="_blank" rel="noopener">Meet Jeremiah: From Bartender to Azure Customer Support Engineer</a>
+        <span class="writing-date">Jun 2018</span>
+      </li>
+    </ul>
   </section>
 
   <footer>
@@ -598,142 +466,6 @@
       card.style.transitionDelay = `${i * 100}ms`;
       observer.observe(card);
     });
-
-    // Fetch Medium RSS and render book
-    async function loadArticles() {
-      const book = document.getElementById('book');
-      const nav = document.getElementById('bookNav');
-      const FEED_URL = 'https://medium.com/feed/@Jtwalters25';
-      const PROXY = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(FEED_URL)}`;
-
-      let articles = [];
-
-      try {
-        const res = await fetch(PROXY);
-        const data = await res.json();
-        if (data.status === 'ok' && data.items && data.items.length > 0) {
-          articles = data.items.slice(0, 8).map(item => {
-            const date = new Date(item.pubDate).toLocaleDateString('en-US', {
-              year: 'numeric', month: 'short', day: 'numeric'
-            });
-            // Strip HTML tags for excerpt
-            const div = document.createElement('div');
-            div.innerHTML = item.description || '';
-            const text = div.textContent || '';
-            const excerpt = text.substring(0, 150).trim() + (text.length > 150 ? '...' : '');
-            return { title: item.title, date, excerpt, link: item.link };
-          });
-        }
-      } catch (e) {}
-
-      if (articles.length === 0) {
-        book.innerHTML = `
-          <div class="book-spine"></div>
-          <div class="book-page book-page--left empty-page">
-            <p style="font-style:italic; color:var(--text-muted); text-align:center;">No articles yet.</p>
-            <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; margin-top:0.5rem;">First entries coming soon.</p>
-          </div>
-          <div class="book-page book-page--right empty-page">
-            <p style="font-style:italic; color:var(--text-muted); text-align:center;">The pages are waiting<br>to be written.</p>
-          </div>`;
-        return;
-      }
-
-      // Pad to even number for page pairs
-      if (articles.length % 2 !== 0) articles.push(null);
-
-      let currentSpread = 0;
-      const totalSpreads = Math.ceil(articles.length / 2);
-
-      function renderSpread(index) {
-        const left = articles[index * 2];
-        const right = articles[index * 2 + 1];
-
-        const leftHTML = left ? `
-          <span class="article-date">${left.date}</span>
-          <h3>${left.title}</h3>
-          <p class="article-excerpt">${left.excerpt}</p>
-          <a class="read-link" href="${left.link}" target="_blank" rel="noopener">Read on Medium →</a>
-          <span class="page-number">${index * 2 + 1}</span>
-        ` : `<p style="font-style:italic; color:var(--text-muted); text-align:center;">— fin —</p>`;
-
-        const rightHTML = right ? `
-          <span class="article-date">${right.date}</span>
-          <h3>${right.title}</h3>
-          <p class="article-excerpt">${right.excerpt}</p>
-          <a class="read-link" href="${right.link}" target="_blank" rel="noopener">Read on Medium →</a>
-          <span class="page-number">${index * 2 + 2}</span>
-        ` : `<p style="font-style:italic; color:var(--text-muted); text-align:center;">— fin —</p>`;
-
-        book.innerHTML = `
-          <div class="book-spine"></div>
-          <div class="book-page book-page--left">${leftHTML}</div>
-          <div class="book-page book-page--right">${rightHTML}</div>
-        `;
-
-        document.getElementById('pageIndicator').textContent = `${index + 1} / ${totalSpreads}`;
-        document.getElementById('prevPage').disabled = index === 0;
-        document.getElementById('nextPage').disabled = index === totalSpreads - 1;
-      }
-
-      // Page-turn sound via Web Audio API (synthesized paper rustle)
-      function playPageSound() {
-        try {
-          const ctx = new (window.AudioContext || window.webkitAudioContext)();
-          const duration = 0.25;
-          const bufferSize = ctx.sampleRate * duration;
-          const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-          const data = buffer.getChannelData(0);
-
-          // White noise shaped with a fast attack/decay envelope
-          for (let i = 0; i < bufferSize; i++) {
-            const t = i / bufferSize;
-            const envelope = Math.sin(t * Math.PI) * Math.pow(1 - t, 2);
-            data[i] = (Math.random() * 2 - 1) * envelope * 0.15;
-          }
-
-          const source = ctx.createBufferSource();
-          source.buffer = buffer;
-
-          // Bandpass filter to sound like paper, not static
-          const filter = ctx.createBiquadFilter();
-          filter.type = 'bandpass';
-          filter.frequency.value = 3000;
-          filter.Q.value = 0.7;
-
-          source.connect(filter);
-          filter.connect(ctx.destination);
-          source.start();
-          source.onended = () => ctx.close();
-        } catch (e) {}
-      }
-
-      function turnPage(direction) {
-        const pages = book.querySelectorAll('.book-page');
-        const turningPage = direction === 'next' ? pages[1] : pages[0];
-
-        playPageSound();
-        turningPage.classList.add('book-page--turning');
-
-        setTimeout(() => {
-          currentSpread += direction === 'next' ? 1 : -1;
-          renderSpread(currentSpread);
-        }, 350);
-      }
-
-      nav.style.display = 'flex';
-      renderSpread(0);
-
-      document.getElementById('prevPage').addEventListener('click', () => {
-        if (currentSpread > 0) turnPage('prev');
-      });
-
-      document.getElementById('nextPage').addEventListener('click', () => {
-        if (currentSpread < totalSpreads - 1) turnPage('next');
-      });
-    }
-
-    loadArticles();
   </script>
 </body>
 </html>
