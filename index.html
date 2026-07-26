@@ -3,61 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeremiah Walters — Developer</title>
+  <title>Jeremiah Walters — Senior Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent: #1b2a4a;
-      --accent-hover: #2c4070;
-      --bg: #fafafa;
-      --bg-card: #ffffff;
-      --bg-paper: #fdf8f0;
-      --text: #1a1a1a;
-      --text-muted: #555555;
-      --border: #ddd;
-      --border-paper: #e0d6c8;
-      --shadow: 0 1px 3px rgba(0,0,0,0.06);
-      --shadow-hover: 0 10px 24px rgba(27,42,74,0.12);
+      --accent: #0f766e;          /* deep teal — for terracotta: swap to #b5502f (hover #903d22) */
+      --accent-hover: #0b5a54;
+      --bg: #faf7f2;              /* warm cream */
+      --bg-card: #fffefb;
+      --text: #1c1a17;           /* warm ink */
+      --text-muted: #6b645b;
+      --border: #e8e1d5;
+      --shadow: 0 1px 2px rgba(28,26,23,0.05);
+      --shadow-hover: 0 16px 40px -14px rgba(15,118,110,0.20);
+      --radius: 10px;
     }
 
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme="light"]) {
-        --bg: #141210;
-        --bg-card: #1c1a17;
-        --bg-paper: #1f1c18;
-        --text: #e8e8e8;
-        --text-muted: #999999;
-        --border: #2a2a2a;
-        --border-paper: #3a3228;
-        --shadow: 0 1px 3px rgba(0,0,0,0.4);
-        --shadow-hover: 0 10px 24px rgba(27,42,74,0.35);
+        --accent: #2dd4bf;
+        --accent-hover: #5eead4;
+        --bg: #14110d;
+        --bg-card: #1d1912;
+        --text: #ece7dd;
+        --text-muted: #9a9086;
+        --border: #322b20;
+        --shadow: 0 1px 2px rgba(0,0,0,0.4);
+        --shadow-hover: 0 16px 40px -14px rgba(45,212,191,0.22);
       }
     }
 
     [data-theme="dark"] {
-      --bg: #141210;
-      --bg-card: #1c1a17;
-      --bg-paper: #1f1c18;
-      --text: #e8e8e8;
-      --text-muted: #999999;
-      --border: #2a2a2a;
-      --border-paper: #3a3228;
-      --shadow: 0 1px 3px rgba(0,0,0,0.4);
-      --shadow-hover: 0 10px 24px rgba(27,42,74,0.35);
+      --accent: #2dd4bf;
+      --accent-hover: #5eead4;
+      --bg: #14110d;
+      --bg-card: #1d1912;
+      --text: #ece7dd;
+      --text-muted: #9a9086;
+      --border: #322b20;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4);
+      --shadow-hover: 0 16px 40px -14px rgba(45,212,191,0.22);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Times New Roman', Times, Georgia, serif;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
       font-size: 16px;
-      line-height: 1.7;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
       background: var(--bg);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
       color: var(--text);
       transition: background-color 0.3s, color 0.3s;
     }
 
+    html { scroll-behavior: smooth; }
     a { color: inherit; }
+
+    ::selection { background: var(--accent); color: #fff; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
 
     nav {
       display: flex;
@@ -73,7 +86,7 @@
       font-size: 1.1rem;
       color: var(--accent);
       text-decoration: none;
-      font-family: 'Courier New', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       letter-spacing: -0.02em;
     }
 
@@ -89,7 +102,7 @@
       text-decoration: none;
       font-size: 0.8rem;
       font-weight: 500;
-      font-family: 'Courier New', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       transition: color 0.2s;
@@ -100,7 +113,7 @@
     .theme-toggle {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 8px;
       padding: 0.4rem 0.6rem;
       cursor: pointer;
       font-size: 1.1rem;
@@ -118,19 +131,21 @@
     }
 
     .hero h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      font-style: italic;
-      letter-spacing: -0.02em;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 3.6rem;
+      font-weight: 400;
+      line-height: 1.05;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
     }
 
-    .hero h1 span { color: var(--accent); font-style: normal; }
+    .hero h1 span { color: var(--accent); font-style: italic; }
 
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1.12rem;
+      line-height: 1.6;
       color: var(--text-muted);
-      max-width: 520px;
+      max-width: 540px;
       margin: 0 auto;
     }
 
@@ -154,14 +169,13 @@
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-top: 3px solid var(--accent);
-      border-radius: 4px;
-      padding: 1.5rem;
+      border-radius: var(--radius);
+      padding: 1.6rem;
       box-shadow: var(--shadow);
       text-decoration: none;
       display: block;
       position: relative;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease, translate 0.6s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 0.6s ease, translate 0.6s ease;
       opacity: 0;
       translate: 0 20px;
     }
@@ -172,14 +186,16 @@
     }
 
     .card:hover {
-      transform: translateY(-6px);
+      transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
     }
 
     .card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.35rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
       color: var(--text);
       display: inline;
       background-image: linear-gradient(var(--accent), var(--accent));
@@ -200,12 +216,12 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--accent);
-      background: transparent;
-      border: 1px solid var(--accent);
-      padding: 0.15rem 0.5rem;
-      border-radius: 3px;
-      margin-bottom: 0.5rem;
-      font-family: 'Courier New', monospace;
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      border: none;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.6rem;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
     }
 
     .card p {
@@ -231,7 +247,7 @@
       z-index: 1;
       display: inline-block;
       margin-top: 0.85rem;
-      font-family: 'Courier New', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       font-size: 0.72rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -239,8 +255,8 @@
       color: var(--accent);
       text-decoration: none;
       border: 1px solid var(--accent);
-      padding: 0.2rem 0.55rem;
-      border-radius: 3px;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
       transition: background 0.2s, color 0.2s;
     }
 
@@ -271,7 +287,7 @@
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.75rem;
-      font-family: 'Courier New', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       transition: color 0.2s;
@@ -281,7 +297,7 @@
 
     footer .copy {
       font-size: 0.7rem;
-      font-family: 'Courier New', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--text-muted);
@@ -294,10 +310,10 @@
     }
 
     .writing h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      font-style: italic;
-      margin-bottom: 1.5rem;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: baseline;
       gap: 0.5rem;
@@ -307,7 +323,7 @@
       font-size: 0.75rem;
       font-weight: 500;
       font-style: normal;
-      font-family: 'Courier New', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--accent);
@@ -345,7 +361,7 @@
     .writing-list a:hover { color: var(--accent); text-decoration: underline; }
 
     .writing-list .writing-date {
-      font-family: 'Courier New', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       font-size: 0.72rem;
       color: var(--text-muted);
       text-transform: uppercase;
@@ -355,7 +371,8 @@
 
     @media (max-width: 600px) {
       .projects { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 1.8rem; }
+      .hero { padding: 3.5rem 1.5rem 2.5rem; }
+      .hero h1 { font-size: 2.6rem; }
       footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
