@@ -6,6 +6,10 @@
     <meta name="color-scheme" content="light dark" />
     <meta name="description" content="Field notes from an attempt to make an engineering workflow agentic: orchestration costs, reusing existing skills, and the gap between passing tests and demonstrated value." />
     <meta name="author" content="Jeremiah Walters" />
+    <meta property="og:title" content="When AI Agents Cost More Than the Work They Automate" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://jtwalters25.github.io/images/covers/when-ai-agents-cost-more.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="data:," />
     <title>When AI Agents Cost More Than the Work They Automate | Jeremiah Walters</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,42 +17,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --blue: #0b6bcb;
-        --blue-bright: #3d9be9;
-        --navy: #081826;
-        --navy-2: #0b2237;
-        --hero-ink: #f2f7fc;
-        --hero-ink-dim: #b9cbdd;
-        --sheet-bg: #fbfcfd;
-        --sheet-ink: #16283a;
-        --sheet-ink-soft: #43586d;
-        --sheet-line: #d7e1ea;
-        --chip-bg: #eef4fa;
-        --page-bg: #e9eff5;
+        --accent: #5b21b6;
+        --accent-bright: #a78bfa;
+        --hero-1: #12081f;
+        --hero-2: #26113f;
+        --hero-ink: #f3eefb;
+        --hero-ink-dim: #c7b9de;
+        --sheet-bg: #ffffff;
+        --sheet-ink: #1f1433;
+        --sheet-ink-soft: #5c4d72;
+        --sheet-line: #e4dcef;
+        --chip-bg: #f2ecfc;
+        --page-bg: #f1edf7;
+        --fig-acc: #7c3aed;
+        --fig-acc-soft: #ddd0fb;
+        --fig-coin: #f2b705;
+        --fig-body: #8b5cf6;
         --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
         --sans: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --sheet-bg: #0d1b29;
-          --sheet-ink: #e8f0f7;
-          --sheet-ink-soft: #a9bdd1;
-          --sheet-line: #27405a;
-          --chip-bg: #12293f;
-          --page-bg: #050d16;
+          --sheet-bg: #1b0f2e;
+          --sheet-ink: #efe9f7;
+          --sheet-ink-soft: #b5a6cc;
+          --sheet-line: #33214f;
+          --chip-bg: #2a1745;
+          --page-bg: #0c0616;
+          --fig-acc: #a78bfa;
+          --fig-acc-soft: #3d2763;
+          --fig-body: #7c3aed;
         }
-        a { color: var(--blue-bright); }
+        a { color: var(--accent-bright); }
       }
       * { box-sizing: border-box; }
       body { margin: 0; font-family: var(--sans); background: var(--page-bg); color: var(--sheet-ink); -webkit-font-smoothing: antialiased; }
-      a { color: var(--blue); }
-      :focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; border-radius: 2px; }
+      a { color: var(--accent); }
+      :focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 3px; border-radius: 2px; }
 
-      .hero { background: radial-gradient(1100px 480px at 85% -10%, rgba(61, 155, 233, 0.22), transparent 60%), linear-gradient(160deg, var(--navy-2), var(--navy) 55%); color: var(--hero-ink); }
+      .hero { background: radial-gradient(1100px 480px at 85% -10%, rgba(139, 92, 246, 0.30), transparent 60%), linear-gradient(160deg, var(--hero-2), var(--hero-1) 55%); color: var(--hero-ink); }
       .hero-inner { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
       .back { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--hero-ink-dim); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
       .back:hover { color: var(--hero-ink); text-decoration: underline; }
-      .kicker { margin: 1.5rem 0 0.75rem; color: var(--blue-bright); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+      .kicker { margin: 1.5rem 0 0.75rem; color: var(--accent-bright); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
       h1 { margin: 0; font-weight: 300; font-size: clamp(2.1rem, 6vw, 3.3rem); line-height: 1.08; letter-spacing: -0.01em; }
       .dek { margin: 1rem 0 0; font-family: var(--serif); font-style: italic; font-size: 1.2rem; line-height: 1.5; color: var(--hero-ink-dim); }
       .byline { margin: 1.25rem 0 0; font-size: 0.9rem; color: var(--hero-ink-dim); }
@@ -62,12 +73,29 @@
       article h2 { margin: 3rem 0 1.1rem; padding-top: 1.5rem; border-top: 1px solid var(--sheet-line); font-size: 1.5rem; font-weight: 600; line-height: 1.25; }
       article h3 { margin: 2rem 0 0.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.02em; color: var(--sheet-ink-soft); }
       .pull { margin: 1.5rem 0; font-family: var(--serif); font-size: 1.35rem; line-height: 1.45; font-style: italic; }
-      .lesson { margin: 1.75rem 0 0; padding: 1rem 1.2rem; background: var(--chip-bg); border-left: 3px solid var(--blue); border-radius: 0 4px 4px 0; }
+      .lesson { margin: 1.75rem 0 0; padding: 1rem 1.2rem; background: var(--chip-bg); border-left: 3px solid var(--accent); border-radius: 0 4px 4px 0; }
       .lesson p { margin: 0; font-family: var(--sans); font-size: 1rem; line-height: 1.6; }
       .flow { font-family: var(--sans); font-weight: 600; font-size: 1.02rem; }
       .refs li { font-family: var(--sans); font-size: 0.95rem; line-height: 1.55; color: var(--sheet-ink-soft); }
       .refs li:target { color: var(--sheet-ink); }
       .closing { font-weight: 600; }
+      figure { margin: 2.2rem 0; }
+      figure svg { display: block; width: 100%; height: auto; }
+      figure svg text { font-family: var(--sans); }
+      figcaption { margin-top: 0.7rem; font-family: var(--sans); font-size: 0.92rem; line-height: 1.5; color: var(--sheet-ink-soft); }
+      .t-ink { fill: var(--sheet-ink); } .t-soft { fill: var(--sheet-ink-soft); } .s-ink { stroke: var(--sheet-ink); } .s-line { stroke: var(--sheet-line); }
+      .f-acc { fill: var(--fig-acc); } .f-acc-soft { fill: var(--fig-acc-soft); } .s-acc { stroke: var(--fig-acc); } .f-body { fill: var(--fig-body); }
+      .f-surface { fill: var(--sheet-bg); } .f-chip { fill: var(--chip-bg); } .f-coin { fill: var(--fig-coin); }
+      .bar:hover { opacity: 0.85; }
+      .pair { display: grid; gap: 1.25rem; }
+      @media (min-width: 600px) { .pair { grid-template-columns: 1fr 1fr; } }
+      .pair h4 { margin: 0 0 0.5rem; font-size: 0.95rem; color: var(--sheet-ink-soft); }
+      .ladder { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
+      .ladder li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.2rem 0.75rem; align-items: start; padding: 0.85rem 1rem; border: 1px solid var(--sheet-line); border-radius: 10px; font-family: var(--sans); font-size: 1rem; line-height: 1.45; }
+      .ladder .n { grid-row: span 2; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--chip-bg); font-weight: 700; }
+      .ladder .q { color: var(--sheet-ink-soft); }
+      .status { justify-self: start; grid-column: 2; margin-top: 0.3rem; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--sheet-line); }
+      .status.pass { background: var(--fig-acc); border-color: var(--fig-acc); color: var(--sheet-bg); }
       footer { max-width: 760px; margin: 0 auto 3rem; padding: 1.5rem 1rem; font-size: 0.9rem; color: var(--sheet-ink-soft); }
     </style>
   </head>
@@ -89,6 +117,40 @@
       <p>Then I tried to measure whether that was actually better than using the existing skills directly.</p>
       <p>That's where things got interesting.</p>
       <p>Across two attempts, the coordinator burned through its entire budget setting up the comparison. Neither arm ever ran. No comparison results. No baseline. No measurable improvement.</p>
+<figure>
+        <svg viewBox="0 0 640 330" role="img" aria-labelledby="fig1t">
+          <title id="fig1t">Cartoon: an original robot labeled Coordinator shrugs with both pockets turned inside out. A moth flies out of one pocket. A receipt beside it reads: budget 0, arm A not started, arm B not started.</title>
+          <ellipse cx="250" cy="300" rx="120" ry="12" class="f-acc-soft"/>
+          <g transform="translate(250 172)">
+            <path d="M-70 -30 L-118 -62 L-128 -96" fill="none" class="s-ink" stroke-width="8" stroke-linecap="round"/>
+            <path d="M70 -30 L118 -62 L128 -96" fill="none" class="s-ink" stroke-width="8" stroke-linecap="round"/>
+            <line x1="0" y1="-128" x2="0" y2="-150" class="s-ink" stroke-width="4"/><circle cx="0" cy="-154" r="7" class="f-coin"/>
+<rect x="-56" y="-130" width="112" height="80" rx="20" class="f-body"/>
+<rect x="-42" y="-116" width="84" height="52" rx="12" fill="#1f1433"/><path d="M-26 -98 q8 -8 16 0" fill="none" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round"/><path d="M10 -98 q8 -8 16 0" fill="none" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round"/><path d="M-12 -76 q12 -8 24 0" fill="none" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round"/><path d="M-30 -110 l14 5 M30 -110 l-14 5" stroke="#c4b5fd" stroke-width="3" stroke-linecap="round"/>
+<rect x="-70" y="-46" width="140" height="138" rx="24" class="f-body"/>
+<rect x="-44" y="92" width="26" height="34" rx="8" class="f-body"/><rect x="18" y="92" width="26" height="34" rx="8" class="f-body"/>
+            <text x="0" y="12" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">COORDINATOR</text>
+            <path d="M-54 48 h38 l-2 34 q-2 22 -17 22 q-15 0 -17 -22 z" fill="#ffffff" class="s-ink" stroke-width="3"/><path d="M-50 58 h30" stroke="#b9a9d6" stroke-width="2" stroke-dasharray="3 3"/>
+            <path d="M16 48 h38 l-2 34 q-2 22 -17 22 q-15 0 -17 -22 z" fill="#ffffff" class="s-ink" stroke-width="3"/><path d="M20 58 h30" stroke="#b9a9d6" stroke-width="2" stroke-dasharray="3 3"/>
+          </g>
+          <g transform="translate(176 250)">
+            <path d="M-6 -16 q-14 -10 -20 4 q8 8 20 2 M6 -16 q14 -10 20 4 q-8 8 -20 2" class="f-acc-soft s-ink" stroke-width="2"/>
+            <ellipse cx="0" cy="-10" rx="4" ry="9" class="t-ink"/>
+            <path d="M8 4 q10 18 -2 34 q-12 14 2 30" fill="none" class="s-ink" stroke-width="2" stroke-dasharray="3 5"/>
+          </g>
+          <g transform="translate(430 70)">
+            <path d="M0 0 h180 v196 l-15 -10 l-15 10 l-15 -10 l-15 10 l-15 -10 l-15 10 l-15 -10 l-15 10 l-15 -10 l-15 10 l-15 -10 l-15 10 z" class="f-surface s-ink" stroke-width="2.5"/>
+            <text x="90" y="30" text-anchor="middle" font-size="15" font-weight="700" class="t-ink">EXPERIMENT RECEIPT</text>
+            <line x1="16" y1="44" x2="164" y2="44" class="s-line" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="16" y="72" font-size="14" class="t-soft">Setup</text><text x="164" y="72" text-anchor="end" font-size="14" font-weight="700" class="t-ink">ALL OF IT</text>
+            <text x="16" y="98" font-size="14" class="t-soft">Arm A</text><text x="164" y="98" text-anchor="end" font-size="14" class="t-ink">not started</text>
+            <text x="16" y="124" font-size="14" class="t-soft">Arm B</text><text x="164" y="124" text-anchor="end" font-size="14" class="t-ink">not started</text>
+            <line x1="16" y1="140" x2="164" y2="140" class="s-line" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="16" y="166" font-size="15" font-weight="700" class="t-ink">Budget left</text><text x="164" y="166" text-anchor="end" font-size="18" font-weight="700" class="f-acc">0</text>
+          </g>
+        </svg>
+        <figcaption>Two attempts in, the coordinator had nothing left to spend on the actual experiment.</figcaption>
+      </figure>
       <p class="pull">The agents weren't struggling with the engineering problem. They hadn't reached it yet.</p>
       <p>Here are the lessons I'm taking forward.</p>
 
@@ -96,12 +158,38 @@
       <p>The comparison was supposed to be simple. Arm A: use the existing skills directly. Arm B: add Worker/Evaluator coordination. Same evidence, same permissions, same evaluation criteria.</p>
       <p>But before either arm could run, the coordinator had to establish source versions, budgets, permissions, review steps, and handoffs. Each decision introduced more context. Each interaction carried that context forward.</p>
       <p>I tried again with a smaller context. Same result.</p>
+<figure>
+        <svg viewBox="0 0 640 320" role="img" aria-labelledby="fig2t">
+          <title id="fig2t">Cartoon: the same robot gets knocked backward by a hit labeled handoff, and its tokens burst out and scatter like coins in a video game, with labels minus context, minus tokens, minus budget.</title>
+          <ellipse cx="230" cy="296" rx="110" ry="11" class="f-acc-soft"/>
+          <g transform="translate(112 132) scale(1.35)"><path d="M0 -46 L12 -14 L44 -24 L22 2 L48 24 L14 20 L8 52 L-8 22 L-40 34 L-20 6 L-46 -16 L-12 -14 Z" class="f-coin"/><text y="4" text-anchor="middle" font-size="10" font-weight="800" fill="#5a3d00">HANDOFF</text></g>
+          <g transform="translate(240 170) rotate(14)">
+            <line x1="0" y1="-128" x2="0" y2="-150" class="s-ink" stroke-width="4"/><circle cx="0" cy="-154" r="7" class="f-coin"/>
+<rect x="-56" y="-130" width="112" height="80" rx="20" class="f-body"/>
+<rect x="-42" y="-116" width="84" height="52" rx="12" fill="#1f1433"/><path d="M-28 -102 l14 14 M-14 -102 l-14 14 M14 -102 l14 14 M28 -102 l-14 14" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round"/><ellipse cx="0" cy="-74" rx="9" ry="7" fill="#c4b5fd"/>
+<rect x="-70" y="-46" width="140" height="138" rx="24" class="f-body"/>
+<rect x="-44" y="92" width="26" height="34" rx="8" class="f-body"/><rect x="18" y="92" width="26" height="34" rx="8" class="f-body"/>
+            <path d="M-70 -20 L-112 -48" class="s-ink" stroke-width="8" stroke-linecap="round"/><path d="M70 -20 L116 -60" class="s-ink" stroke-width="8" stroke-linecap="round"/>
+          </g>
+          <path d="M300 120 q40 -40 80 -30 M300 150 q70 -20 120 10" fill="none" class="s-line" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+          <g transform="translate(392 96)"><circle r="15" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="5.4" text-anchor="middle" font-size="16" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(440 70)"><circle r="13" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="4.7" text-anchor="middle" font-size="14" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(486 110)"><circle r="14" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="5.0" text-anchor="middle" font-size="15" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(530 64)"><circle r="12" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="4.3" text-anchor="middle" font-size="13" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(468 168)"><circle r="13" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="4.7" text-anchor="middle" font-size="14" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(560 128)"><circle r="12" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="4.3" text-anchor="middle" font-size="13" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(600 86)"><circle r="11" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="4.0" text-anchor="middle" font-size="12" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(512 200)"><circle r="12" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="4.3" text-anchor="middle" font-size="13" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(420 150)"><circle r="14" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="5.0" text-anchor="middle" font-size="15" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(588 180)"><circle r="11" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="4.0" text-anchor="middle" font-size="12" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(354 60)"><circle r="12" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="4.3" text-anchor="middle" font-size="13" font-weight="800" fill="#7a5600">T</text></g><g transform="translate(620 150)"><circle r="10" class="f-coin" stroke="#b07f00" stroke-width="2"/><text y="3.6" text-anchor="middle" font-size="10" font-weight="800" fill="#7a5600">T</text></g><text x="410" y="40" font-size="15" font-weight="700" class="f-acc">-context</text><text x="548" y="40" font-size="15" font-weight="700" class="f-acc">-tokens</text><text x="548" y="244" font-size="15" font-weight="700" class="f-acc">-budget</text>
+        </svg>
+        <figcaption>Every handoff carried the whole history forward. Each one cost tokens, and the coordinator kept dropping them.</figcaption>
+      </figure>
       <p>In hindsight, this was a known cost, not a surprise:</p>
       <ul>
         <li><strong>Multi-agent systems are expensive by design.</strong> Anthropic reports they use about 15&times; the tokens of chat, and are a poor fit when agents share context or depend on each other. <a href="#ref-1">[1]</a></li>
         <li><strong>Long context degrades reasoning.</strong> Chroma found output gets less reliable as input grows, even on simple tasks. <a href="#ref-2">[2]</a></li>
         <li><strong>Coordination is where these systems fail.</strong> A study of 1,600+ multi-agent traces found failures cluster in design, inter-agent misalignment, and verification. <a href="#ref-3">[3]</a></li>
       </ul>
+<figure>
+        <svg viewBox="0 0 640 200" role="img" aria-labelledby="fig3t">
+          <title id="fig3t">Bar chart of token usage relative to a chat interaction: chat 1x, single agent about 4x, multi-agent about 15x.</title>
+          <line x1="152" y1="20" x2="152" y2="190" class="s-line" stroke-width="2"/>
+          <text x="140" y="55" text-anchor="end" font-size="15" class="t-ink">Chat</text><g class="bar"><title>Chat: 1× the tokens of a chat interaction</title><path d="M152 34 h23 a4 4 0 0 1 4 4 v24 a4 4 0 0 1 -4 4 h-23 z" class="f-acc"/></g><text x="189" y="55" font-size="15" font-weight="700" class="t-ink">1×</text><text x="140" y="109" text-anchor="end" font-size="15" class="t-ink">Single agent</text><g class="bar"><title>Single agent: ~4× the tokens of a chat interaction</title><path d="M152 88 h104 a4 4 0 0 1 4 4 v24 a4 4 0 0 1 -4 4 h-104 z" class="f-acc"/></g><text x="270" y="109" font-size="15" font-weight="700" class="t-ink">~4×</text><text x="140" y="163" text-anchor="end" font-size="15" class="t-ink">Multi-agent</text><g class="bar"><title>Multi-agent: ~15× the tokens of a chat interaction</title><path d="M152 142 h401 a4 4 0 0 1 4 4 v24 a4 4 0 0 1 -4 4 h-401 z" class="f-acc"/></g><text x="567" y="163" font-size="15" font-weight="700" class="t-ink">~15×</text>
+        </svg>
+        <figcaption>Token usage relative to a single chat interaction, as reported by Anthropic for its multi-agent research system. <a href="#ref-1">[1]</a></figcaption>
+      </figure>
       <p>Next time, I'd record inputs once, keep contexts small, run independent tasks independently, and pass artifacts instead of conversation histories. <a href="#ref-4">[4]</a></p>
       <div class="lesson"><p><strong>Lesson:</strong> Every agent handoff has a cost. Make sure the coordination is worth it.</p></div>
 
@@ -111,7 +199,13 @@
       <p>If a skill already knows how to generate a detection rule, why create another agent for it? If a test runner already validates the result, why ask an LLM to simulate that?</p>
       <p>A capability doesn't need to become an agent just because an agent could do it.</p>
       <p>So I settled on a simpler model:</p>
-      <p class="flow">Existing skill &rarr; Optional independent evaluation &rarr; Human decision</p>
+<figure>
+        <div class="pair">
+          <div><h4>What I built</h4><svg viewBox="-20 0 340 260" role="img" aria-label="Hub diagram: a coordinator in the middle connected to state, budgets, handoffs, manifests, a worker, and an evaluator."><line x1="150" y1="130" x2="60" y2="40" class="s-line" stroke-width="2"/><line x1="150" y1="130" x2="240" y2="40" class="s-line" stroke-width="2"/><line x1="150" y1="130" x2="30" y2="130" class="s-line" stroke-width="2"/><line x1="150" y1="130" x2="270" y2="130" class="s-line" stroke-width="2"/><line x1="150" y1="130" x2="70" y2="220" class="s-line" stroke-width="2"/><line x1="150" y1="130" x2="230" y2="220" class="s-line" stroke-width="2"/><rect x="12.0" y="20" width="96" height="40" rx="10" class="f-chip s-acc" stroke-width="2"/><text x="60" y="45" text-anchor="middle" font-size="14" font-weight="600" class="t-ink">State</text><rect x="192.0" y="20" width="96" height="40" rx="10" class="f-chip s-acc" stroke-width="2"/><text x="240" y="45" text-anchor="middle" font-size="14" font-weight="600" class="t-ink">Budgets</text><rect x="-18.0" y="110" width="96" height="40" rx="10" class="f-chip s-acc" stroke-width="2"/><text x="30" y="135" text-anchor="middle" font-size="14" font-weight="600" class="t-ink">Handoffs</text><rect x="222.0" y="110" width="96" height="40" rx="10" class="f-chip s-acc" stroke-width="2"/><text x="270" y="135" text-anchor="middle" font-size="14" font-weight="600" class="t-ink">Manifests</text><rect x="22.0" y="200" width="96" height="40" rx="10" class="f-chip s-acc" stroke-width="2"/><text x="70" y="225" text-anchor="middle" font-size="14" font-weight="600" class="t-ink">Worker</text><rect x="182.0" y="200" width="96" height="40" rx="10" class="f-chip s-acc" stroke-width="2"/><text x="230" y="225" text-anchor="middle" font-size="14" font-weight="600" class="t-ink">Evaluator</text><rect x="92.0" y="110" width="116" height="40" rx="10" class="f-acc s-acc" stroke-width="2"/><text x="150" y="135" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">Coordinator</text></svg></div>
+          <div><h4>What actually worked</h4><svg viewBox="0 0 300 260" role="img" aria-label="Chain diagram: existing skill, then optional independent evaluation, then human decision."><rect x="50.0" y="16" width="200" height="40" rx="10" class="f-acc s-acc" stroke-width="2"/><text x="150" y="41" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">Existing skill</text><path d="M150 58 v30" class="s-acc" stroke-width="2.5"/><path d="M144 82 l6 8 l6 -8" fill="none" class="s-acc" stroke-width="2.5"/><rect x="40" y="96" width="220" height="44" rx="10" class="f-surface s-acc" stroke-width="2" stroke-dasharray="6 5"/><text x="150" y="123" text-anchor="middle" font-size="14" font-weight="600" class="t-ink">Optional independent evaluation</text><path d="M150 142 v30" class="s-acc" stroke-width="2.5"/><path d="M144 166 l6 8 l6 -8" fill="none" class="s-acc" stroke-width="2.5"/><rect x="50.0" y="180" width="200" height="40" rx="10" class="f-acc s-acc" stroke-width="2"/><text x="150" y="205" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">Human decision</text><text x="150" y="252" text-anchor="middle" font-size="13" class="t-soft">dashed = only when review adds value</text></svg></div>
+        </div>
+        <figcaption>Every box on the left is something to design, run, and pay for. The chain on the right reuses what already existed.</figcaption>
+      </figure>
       <p>Not the most exciting architecture diagram. But easier to reason about, easier to maintain, and much cheaper to coordinate. It's also what Anthropic recommends: find the simplest solution that works, and add complexity only when it demonstrably improves outcomes. <a href="#ref-5">[5]</a></p>
       <div class="lesson"><p><strong>Lesson:</strong> Reuse capabilities before introducing agents. More agents don't automatically mean more value.</p></div>
 
@@ -131,13 +225,16 @@
       <p>Both produced zero findings.</p>
       <p>No false positives, but also no real-world case exercising the new branch. The tests proved the implementation behaved as expected. They didn't prove it delivered more coverage.</p>
       <p>The scan did reveal something else: a value passed through an intermediate collection before reaching its destination. A syntax-local rule can't follow that. The right move isn't to keep stretching the matcher. It's to ask whether a relationship-aware tool fits better.</p>
-      <p>Agent-generated code needs the same discipline as human-generated code. I now separate four levels of evidence:</p>
-      <ul>
-        <li><strong>Execution correctness:</strong> Did the workflow run?</li>
-        <li><strong>Technical correctness:</strong> Does the output satisfy its specification?</li>
-        <li><strong>Representative validity:</strong> Does it behave correctly under realistic conditions?</li>
-        <li><strong>Outcome value:</strong> Did it actually improve something that matters?</li>
-      </ul>
+      <p>Agent-generated code needs the same discipline as human-generated code. I now separate four levels of evidence, and here's how our rule change scored:</p>
+      <figure>
+        <ol class="ladder">
+          <li><span class="n">1</span><span><strong>Execution correctness.</strong> <span class="q">Did the workflow run?</span></span><span class="status pass">&#10003; Passed</span></li>
+          <li><span class="n">2</span><span><strong>Technical correctness.</strong> <span class="q">Does the output satisfy its specification?</span></span><span class="status pass">&#10003; Passed: full suite green</span></li>
+          <li><span class="n">3</span><span><strong>Representative validity.</strong> <span class="q">Does it behave correctly under realistic conditions?</span></span><span class="status">? Inconclusive: zero findings either way</span></li>
+          <li><span class="n">4</span><span><strong>Outcome value.</strong> <span class="q">Did it actually improve something that matters?</span></span><span class="status">&#10005; Not demonstrated</span></li>
+        </ol>
+        <figcaption>Where the rule change landed on each level. Passing tests cleared the first two rungs and said nothing about the last two.</figcaption>
+      </figure>
       <p>Google's static-analysis team made the same point years ago. They judge a check by whether developers act on its findings, and refine checks against real code before enabling them. <a href="#ref-6">[6]</a></p>
       <div class="lesson"><p><strong>Lesson:</strong> A successful execution isn't necessarily a successful engineering outcome.</p></div>
 
