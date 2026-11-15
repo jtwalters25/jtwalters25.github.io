@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Field notes from an attempt to make an engineering workflow agentic: orchestration costs, reusing existing skills, and the gap between passing tests and demonstrated value." />
+    <meta name="author" content="Jeremiah Walters" />
+    <link rel="icon" href="data:," />
+    <title>When AI Agents Cost More Than the Work They Automate | Jeremiah Walters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --blue: #0b6bcb;
+        --blue-bright: #3d9be9;
+        --navy: #081826;
+        --navy-2: #0b2237;
+        --hero-ink: #f2f7fc;
+        --hero-ink-dim: #b9cbdd;
+        --sheet-bg: #fbfcfd;
+        --sheet-ink: #16283a;
+        --sheet-ink-soft: #43586d;
+        --sheet-line: #d7e1ea;
+        --chip-bg: #eef4fa;
+        --page-bg: #e9eff5;
+        --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+        --sans: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --sheet-bg: #0d1b29;
+          --sheet-ink: #e8f0f7;
+          --sheet-ink-soft: #a9bdd1;
+          --sheet-line: #27405a;
+          --chip-bg: #12293f;
+          --page-bg: #050d16;
+        }
+        a { color: var(--blue-bright); }
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: var(--sans); background: var(--page-bg); color: var(--sheet-ink); -webkit-font-smoothing: antialiased; }
+      a { color: var(--blue); }
+      :focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; border-radius: 2px; }
+
+      .hero { background: radial-gradient(1100px 480px at 85% -10%, rgba(61, 155, 233, 0.22), transparent 60%), linear-gradient(160deg, var(--navy-2), var(--navy) 55%); color: var(--hero-ink); }
+      .hero-inner { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+      .back { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--hero-ink-dim); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
+      .back:hover { color: var(--hero-ink); text-decoration: underline; }
+      .kicker { margin: 1.5rem 0 0.75rem; color: var(--blue-bright); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+      h1 { margin: 0; font-weight: 300; font-size: clamp(2.1rem, 6vw, 3.3rem); line-height: 1.08; letter-spacing: -0.01em; }
+      .dek { margin: 1rem 0 0; font-family: var(--serif); font-style: italic; font-size: 1.2rem; line-height: 1.5; color: var(--hero-ink-dim); }
+      .byline { margin: 1.25rem 0 0; font-size: 0.9rem; color: var(--hero-ink-dim); }
+
+      article { max-width: 760px; margin: 0 auto; padding: 2.5rem 1rem 3rem; background: var(--sheet-bg); }
+      @media (min-width: 760px) { article { padding: 3rem 3rem 3.5rem; box-shadow: 0 0 0 1px var(--sheet-line); } }
+      article p, article li { font-family: var(--serif); font-size: 1.12rem; line-height: 1.7; }
+      article p { margin: 0 0 1.1rem; }
+      article ul { margin: 0 0 1.3rem; padding-left: 1.3rem; }
+      article li { margin-bottom: 0.35rem; }
+      article h2 { margin: 3rem 0 1.1rem; padding-top: 1.5rem; border-top: 1px solid var(--sheet-line); font-size: 1.5rem; font-weight: 600; line-height: 1.25; }
+      article h3 { margin: 2rem 0 0.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.02em; color: var(--sheet-ink-soft); }
+      .pull { margin: 1.5rem 0; font-family: var(--serif); font-size: 1.35rem; line-height: 1.45; font-style: italic; }
+      .lesson { margin: 1.75rem 0 0; padding: 1rem 1.2rem; background: var(--chip-bg); border-left: 3px solid var(--blue); border-radius: 0 4px 4px 0; }
+      .lesson p { margin: 0; font-family: var(--sans); font-size: 1rem; line-height: 1.6; }
+      .flow { font-family: var(--sans); font-weight: 600; font-size: 1.02rem; }
+      .table-wrap { overflow-x: auto; margin: 0 0 1rem; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+      th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--sheet-line); }
+      th { font-weight: 700; }
+      td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .note { font-family: var(--sans); font-size: 0.92rem; color: var(--sheet-ink-soft); }
+      .closing { font-weight: 600; }
+      footer { max-width: 760px; margin: 0 auto 3rem; padding: 1.5rem 1rem; font-size: 0.9rem; color: var(--sheet-ink-soft); }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-inner">
+        <a class="back" href="../">&larr; Jeremiah Walters</a>
+        <p class="kicker">Field notes</p>
+        <h1>When AI Agents Cost More Than the Work They Automate</h1>
+        <p class="dek">Orchestration, engineering skills, and knowing when to simplify.</p>
+        <p class="byline">By Jeremiah Walters &middot; <time datetime="2026-11">November 2026</time></p>
+      </div>
+    </header>
+
+    <article>
+      <p>I recently spent some time experimenting with making an existing engineering workflow more agentic.</p>
+      <p>The goal was straightforward: take a process that already worked, introduce AI agents to handle some of the coordination and repetitive work, and see whether we could improve efficiency without sacrificing correctness.</p>
+      <p>The process involved turning engineering requirements into code patterns, examples, detection rules, and validation results. We already had tools and reusable skills for most of that work. What I wanted to explore was whether agents could connect those capabilities more effectively.</p>
+      <p>The first experiment was promising. A worker gathered evidence. An evaluator reviewed the conclusions. The workflow produced a useful, human-accepted research result.</p>
+      <p>Then I tried to measure whether that approach was actually better than using the existing skills directly. That's where things got interesting.</p>
+      <p>Across two attempts, the orchestration consumed more than four million input tokens before either comparison task started. No comparison results. No baseline. No measurable improvement.</p>
+      <p class="pull">The agents weren't struggling with the engineering problem. They hadn't reached it yet.</p>
+      <p>That experience changed how I think about agentic engineering. Here are the lessons I'm taking forward.</p>
+
+      <h2>1. The Coordinator Can Become More Expensive Than the Work</h2>
+      <p>My initial design followed a familiar multi-agent pattern. One agent would perform research. Another would evaluate the results. A coordinating process would manage assignments, preserve state, handle feedback, and determine when the work was ready for human review.</p>
+      <p>On paper, it made sense. Responsibilities were separated. Evidence was preserved. Each stage had clear expectations.</p>
+      <p>And the first research pilot worked. It used an existing engineering skill, a Worker, and an Evaluator to investigate a reliability requirement. The result was grounded in source evidence, acknowledged uncertainty, and was accepted after human review. The pilot consumed approximately 475,000 input tokens.</p>
+      <p>Then I decided to compare that approach against the existing skill-led workflow. The comparison was supposed to be simple:</p>
+      <ul>
+        <li><strong>Arm A:</strong> Use the existing engineering skills directly.</li>
+        <li><strong>Arm B:</strong> Use those same skills with Worker/Evaluator coordination.</li>
+      </ul>
+      <p>Both would receive identical evidence, permissions, and evaluation criteria.</p>
+      <p>But before either arm could run, the coordinator needed to establish the experimental conditions. That meant verifying source versions, budgets, permissions, review processes, execution order, and handoff requirements.</p>
+      <p>Each decision introduced more context. Each subsequent interaction carried more of that context forward. Eventually, preparation exhausted the resource allowance before either arm launched.</p>
+      <p>I tried again with a smaller execution context. The second attempt also exhausted its budget before the research began.</p>
+
+      <h3>The numbers</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Activity</th><th>Input tokens</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr><td>Initial research pilot</td><td class="num">~475,000</td><td>Completed and accepted</td></tr>
+            <tr><td>A/B coordination attempts</td><td class="num">~4.25 million</td><td>Neither arm launched</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">These figures came from recorded usage receipts. They are not billing totals, and the coordination subtotal excludes some additional activity.</p>
+      <p>Without detailed per-call attribution, I can't definitively say which coordination activities consumed the most tokens. But the overall result was clear: we spent substantially more effort preparing to compare the work than performing the original research task.</p>
+
+      <h3>What I'd do differently</h3>
+      <p>I'd avoid using a long-running conversational agent to coordinate independent engineering tasks unless that coordination provides a measurable benefit. Instead:</p>
+      <ul>
+        <li>Record the task and inputs once.</li>
+        <li>Keep execution contexts small.</li>
+        <li>Run independent tasks independently.</li>
+        <li>Pass artifacts instead of entire conversation histories.</li>
+        <li>Measure coordination overhead separately from execution.</li>
+      </ul>
+      <p>A coordinator should exist because coordination adds value, not simply because the architecture supports another agent.</p>
+      <div class="lesson"><p><strong>Lesson:</strong> Every agent handoff has a cost. Make sure the coordination is worth it.</p></div>
+
+      <h2>2. Before Building Another Agent, Look at What You Already Have</h2>
+      <p>One of the most useful exercises wasn't building an agent. It was taking inventory of the capabilities we already had.</p>
+      <p>Our engineering repository contained 26 reusable skill definitions covering activities such as:</p>
+      <ul>
+        <li>Requirements analysis</li>
+        <li>Pattern discovery</li>
+        <li>Code sample development</li>
+        <li>Rule authoring</li>
+        <li>Tool selection</li>
+        <li>Validation</li>
+        <li>Code review</li>
+        <li>Historical incident investigation</li>
+      </ul>
+      <p>Initially, I considered introducing specialized agents around several of these responsibilities. But the inventory exposed an important distinction: a capability doesn't need to become an agent just because an agent could perform it.</p>
+      <p>If an existing skill already knows how to generate a detection rule, why create another agent responsible for rule generation? If a deterministic test runner already validates the result, why ask an LLM to simulate that validation? If an established tool already retrieves source evidence, why duplicate the retrieval process?</p>
+      <p>The more useful question became: <em>what part of this workflow actually requires additional reasoning or coordination?</em></p>
+      <p>Sometimes the answer was independent evidence review. Sometimes it was selecting the appropriate existing tool. And sometimes the existing process was already sufficient.</p>
+
+      <h3>The simpler approach</h3>
+      <p>Instead of building a large collection of specialized agents, I settled on a more selective model:</p>
+      <p class="flow">Existing skill &rarr; Optional independent evaluation &rarr; Human decision</p>
+      <p>For straightforward work, use the existing skill. For complex or ambiguous work, introduce an evaluator when independent review could meaningfully improve the result. For implementation and validation, continue using established engineering tools.</p>
+      <p>It's not necessarily the most exciting architecture diagram. But it's easier to reason about, easier to maintain, and much less expensive to coordinate.</p>
+      <div class="lesson"><p><strong>Lesson:</strong> Reuse capabilities before introducing agents. More agents don't automatically mean more value.</p></div>
+
+      <h2>3. Sometimes the Best Agent Decision Is Not to Act</h2>
+      <p>One of the more encouraging results came from an investigation that didn't produce a code change.</p>
+      <p>The task involved determining whether an outbound dependency path had an effective concurrency limit. The agent examined source evidence, configuration, supporting code, and counterexamples. The evaluator then reviewed the conclusions.</p>
+      <p>The investigation found an existing concurrency-control mechanism. However, the available evidence couldn't establish its effective process-wide behavior under actual deployment conditions. Several important details remained unresolved.</p>
+      <p>The workflow could have overreached. It could have interpreted incomplete evidence as a violation, recommended another detection rule, or suggested a configuration change.</p>
+      <p>Instead, it produced a qualified finding and stopped. No confirmed production violation. No established detector defect. No justified code change.</p>
+      <p>That was the correct outcome.</p>
+
+      <h3>Why this matters</h3>
+      <p>We often measure AI agents by whether they complete tasks. But in engineering, knowing when not to proceed is part of completing a task correctly.</p>
+      <p>An agent that confidently recommends changes from incomplete evidence can create more work than it eliminates. An agent that identifies uncertainty, explains what's missing, and stops at the right boundary can be genuinely useful.</p>
+      <p>I started thinking about abstention differently. It's not necessarily a failure state. Sometimes it's the most responsible output.</p>
+      <div class="lesson"><p><strong>Lesson:</strong> A trustworthy agent should be able to say, "The evidence doesn't justify a change."</p></div>
+
+      <h2>4. Passing Tests Doesn't Mean You've Demonstrated Value</h2>
+      <p>After simplifying the approach, I returned to a more practical experiment. Instead of comparing elaborate agent architectures, I opened a clean development workspace and gave Copilot one engineering task: find a narrow detection gap, improve the existing rule, add regression fixtures, and validate the result.</p>
+      <p>No parent coordinator. No A/B experiment. No additional agents. Just the existing engineering skills and tools.</p>
+      <p>The task involved improving a static-analysis rule that recognized a particular problematic coding pattern but missed a related syntax variation. The improvement was small and well scoped. We extended the matcher, added positive and negative fixtures, and ran the validation suite.</p>
+      <p>The tests passed. Then a review identified a potential false positive: the new matcher could recognize a similar operation on an unrelated data structure. That was a legitimate issue.</p>
+      <p>We tightened the rule, added regression cases, and validated it again. 360 tests passed. The build passed. The other local validation checks passed. At that point, the implementation looked healthy.</p>
+      <p>But local correctness was only part of the question. We still needed to know whether the improvement was useful against representative source code. So we evaluated the previous and updated rule versions against selected real repositories.</p>
+      <p>Both versions produced zero findings.</p>
+      <p>Was that a failure? Not necessarily. The local fixtures demonstrated that the matcher recognized the intended syntax and rejected the tested counterexamples. The representative scan didn't reveal false positives. But it also didn't contain a production example exercising the new detection branch. That meant we couldn't establish real-world precision or improved recall for the new behavior.</p>
+      <p class="pull">The tests proved the implementation behaved as expected under the tested conditions. They didn't prove the change delivered additional production coverage.</p>
+      <p>Interestingly, the repository investigation revealed a different limitation. A relevant value was constructed in one location and later passed through an intermediate collection before reaching its final destination. The syntax-local rule couldn't establish that relationship.</p>
+      <p>That was potentially a more meaningful detection opportunity, but it also required a different kind of analysis. The right response wasn't to keep expanding the existing matcher until it recognized everything. It was to investigate whether a relationship-aware analysis tool would be more appropriate.</p>
+
+      <h3>What this taught me</h3>
+      <p>Agent-generated code needs the same engineering discipline as human-generated code. A green test suite is important. But we should distinguish:</p>
+      <ul>
+        <li><strong>Execution correctness:</strong> Did the workflow run?</li>
+        <li><strong>Technical correctness:</strong> Does the output satisfy its specification?</li>
+        <li><strong>Representative validity:</strong> Does it behave correctly under realistic conditions?</li>
+        <li><strong>Outcome value:</strong> Did it actually improve something that matters?</li>
+      </ul>
+      <p>Those are different levels of evidence.</p>
+      <div class="lesson"><p><strong>Lesson:</strong> A successful execution isn't necessarily a successful engineering outcome.</p></div>
+
+      <h2>5. The Experiment Was Becoming the Project</h2>
+      <p>Looking back, this may have been my biggest mistake.</p>
+      <p>I started with a straightforward engineering objective. I wanted to make an existing process more efficient. But over time, I found myself spending more effort on the experimental machinery than on the engineering work. I was designing:</p>
+      <ul>
+        <li>Agent responsibilities</li>
+        <li>Handoff contracts</li>
+        <li>State management</li>
+        <li>Approval checkpoints</li>
+        <li>Evaluation protocols</li>
+        <li>Resource budgets</li>
+        <li>Execution manifests</li>
+        <li>Comparison procedures</li>
+      </ul>
+      <p>Each addition seemed reasonable. Each solved a problem introduced by the previous layer. Eventually, the experiment had become a system of its own, and that system was expensive to operate.</p>
+      <p>The turning point came when I stopped trying to perfect the comparison and returned to the original engineering task. I opened a clean workspace. I used the existing skills. I asked for one defensible improvement.</p>
+      <p>The result wasn't revolutionary. But it was tangible. We identified a coverage gap, improved a rule, caught a false-positive risk, added tests, and evaluated the candidate against representative code. We also learned where the rule's limitations were.</p>
+      <p>That was real engineering progress. And it didn't require a sophisticated orchestration framework.</p>
+
+      <h3>The lesson I wish I'd started with</h3>
+      <p>Prove the smallest useful workflow before designing the system that coordinates it.</p>
+      <p>It's easy to justify complexity incrementally. It's harder to step back and ask whether the complexity is improving the outcome. Sometimes the most important architectural decision is deciding what not to build.</p>
+      <div class="lesson"><p><strong>Lesson:</strong> If the experiment requires more engineering than the problem you're trying to solve, it's time to simplify.</p></div>
+
+      <h2>6. What I'd Do Differently Next Time</h2>
+      <p>I haven't abandoned agentic engineering. But I'd approach the next experiment differently.</p>
+      <h3>Start with one real task</h3>
+      <p>Before designing a multi-agent system, demonstrate that one agent using existing tools can produce a useful result.</p>
+      <h3>Inventory existing capabilities</h3>
+      <p>Don't introduce agents to recreate functionality already provided by skills, scripts, APIs, or engineering pipelines.</p>
+      <h3>Keep context small</h3>
+      <p>Avoid carrying entire experiment histories through long-running coordination conversations. Use concise task inputs and artifact-based handoffs.</p>
+      <h3>Measure the entire workflow</h3>
+      <p>Include preparation, coordination, execution, validation, human review, and rework. Optimizing only the agent's execution time can hide the actual cost.</p>
+      <h3>Make evidence part of the output</h3>
+      <p>Require sources, assumptions, counterexamples, and explicit uncertainty. Don't accept plausible conclusions as verified conclusions.</p>
+      <h3>Validate beyond synthetic examples</h3>
+      <p>Use realistic inputs and representative environments. A test suite can demonstrate technical behavior without establishing real-world usefulness.</p>
+      <h3>Introduce evaluators selectively</h3>
+      <p>Independent review can be valuable, especially when evidence is ambiguous or the consequences of a wrong conclusion are significant. But it doesn't need to be mandatory for every task.</p>
+      <h3>Know when to stop</h3>
+      <p>If coordination becomes more expensive than execution, reconsider whether the orchestration is necessary. And if the evidence doesn't justify a change, don't force one.</p>
+
+      <h2>So, Did the Experiment Work?</h2>
+      <p>That's a more complicated question than I expected.</p>
+      <p>Some parts worked. The research workflow produced an evidence-backed result and appropriately stopped when the evidence was insufficient. The simpler skill-led process produced a locally validated detection improvement. The existing tools and skills proved capable of handling much of the engineering work without additional orchestration.</p>
+      <p>Other parts didn't. The formal multi-agent comparison never executed because coordination exhausted its resource budget. The detection improvement passed local tests but didn't demonstrate additional real-world coverage in the representative sample. And we never established whether Worker/Evaluator coordination improved productivity compared with the existing skill-led process.</p>
+      <p>I wouldn't call the overall effort a completed success. But I wouldn't call it wasted effort either. The experiments helped distinguish what was technically possible from what was operationally useful.</p>
+      <p>They also changed the questions I ask when designing agentic systems. I'm less interested in how many agents I can coordinate. I'm more interested in:</p>
+      <ul>
+        <li>How much human effort does this actually remove?</li>
+        <li>How much coordination overhead does it introduce?</li>
+        <li>Can I verify the output?</li>
+        <li>What happens when the evidence is incomplete?</li>
+        <li>Does the additional complexity improve the result?</li>
+        <li>Can I demonstrate improvement against the existing process?</li>
+      </ul>
+      <p>Those questions feel more important than the number of agents in the architecture.</p>
+
+      <h2>Final Thoughts</h2>
+      <p>I started these experiments wanting to make engineering workflows more agentic. What I learned is that adding agents is often the easy part. The harder work is making the system efficient, trustworthy, measurable, and useful.</p>
+      <p>More autonomy doesn't automatically create more value. More sophisticated orchestration doesn't automatically produce better outcomes. And passing every test doesn't necessarily mean you've solved a meaningful problem.</p>
+      <p>Sometimes the best improvement is another agent. Sometimes it's a better tool. Sometimes it's an existing skill. And sometimes it's removing the coordination layer entirely.</p>
+      <p class="pull">The goal of agentic engineering shouldn't be to maximize autonomy. It should be to minimize the total effort required to reach a correct, evidence-backed outcome.</p>
+      <p>That's the principle I'll be carrying into my next experiment.</p>
+      <p class="closing">I'm curious how others are approaching this. If you've been experimenting with agentic engineering, where have you seen the biggest unexpected costs: orchestration, context management, evaluation, or something else?</p>
+    </article>
+
+    <footer>
+      <a href="../">&larr; Back to Jeremiah Walters</a> &middot;
+      <a href="https://www.linkedin.com/in/jeremiahwalters" target="_blank" rel="noopener">LinkedIn</a> &middot;
+      <a href="https://github.com/jtwalters25" target="_blank" rel="noopener">GitHub</a>
+    </footer>
+  </body>
+</html>
