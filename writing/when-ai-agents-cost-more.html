@@ -65,12 +65,8 @@
       .lesson { margin: 1.75rem 0 0; padding: 1rem 1.2rem; background: var(--chip-bg); border-left: 3px solid var(--blue); border-radius: 0 4px 4px 0; }
       .lesson p { margin: 0; font-family: var(--sans); font-size: 1rem; line-height: 1.6; }
       .flow { font-family: var(--sans); font-weight: 600; font-size: 1.02rem; }
-      .table-wrap { overflow-x: auto; margin: 0 0 1rem; }
-      table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
-      th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--sheet-line); }
-      th { font-weight: 700; }
-      td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
-      .note { font-family: var(--sans); font-size: 0.92rem; color: var(--sheet-ink-soft); }
+      .refs li { font-family: var(--sans); font-size: 0.95rem; line-height: 1.55; color: var(--sheet-ink-soft); }
+      .refs li:target { color: var(--sheet-ink); }
       .closing { font-weight: 600; }
       footer { max-width: 760px; margin: 0 auto 3rem; padding: 1.5rem 1rem; font-size: 0.9rem; color: var(--sheet-ink-soft); }
     </style>
@@ -92,14 +88,14 @@
       <p>The process involved turning engineering requirements into code patterns, examples, detection rules, and validation results. We already had tools and reusable skills for most of that work. What I wanted to explore was whether agents could connect those capabilities more effectively.</p>
       <p>The first experiment was promising. A worker gathered evidence. An evaluator reviewed the conclusions. The workflow produced a useful, human-accepted research result.</p>
       <p>Then I tried to measure whether that approach was actually better than using the existing skills directly. That's where things got interesting.</p>
-      <p>Across two attempts, the orchestration consumed more than four million input tokens before either comparison task started. No comparison results. No baseline. No measurable improvement.</p>
+      <p>Across two attempts, the orchestration burned through its entire budget, many times what the original pilot had used, before either comparison task started. No comparison results. No baseline. No measurable improvement.</p>
       <p class="pull">The agents weren't struggling with the engineering problem. They hadn't reached it yet.</p>
       <p>That experience changed how I think about agentic engineering. Here are the lessons I'm taking forward.</p>
 
       <h2>1. The Coordinator Can Become More Expensive Than the Work</h2>
       <p>My initial design followed a familiar multi-agent pattern. One agent would perform research. Another would evaluate the results. A coordinating process would manage assignments, preserve state, handle feedback, and determine when the work was ready for human review.</p>
       <p>On paper, it made sense. Responsibilities were separated. Evidence was preserved. Each stage had clear expectations.</p>
-      <p>And the first research pilot worked. It used an existing engineering skill, a Worker, and an Evaluator to investigate a reliability requirement. The result was grounded in source evidence, acknowledged uncertainty, and was accepted after human review. The pilot consumed approximately 475,000 input tokens.</p>
+      <p>And the first research pilot worked. It used an existing engineering skill, a Worker, and an Evaluator to investigate a reliability requirement. The result was grounded in source evidence, acknowledged uncertainty, and was accepted after human review.</p>
       <p>Then I decided to compare that approach against the existing skill-led workflow. The comparison was supposed to be simple:</p>
       <ul>
         <li><strong>Arm A:</strong> Use the existing engineering skills directly.</li>
@@ -110,18 +106,16 @@
       <p>Each decision introduced more context. Each subsequent interaction carried more of that context forward. Eventually, preparation exhausted the resource allowance before either arm launched.</p>
       <p>I tried again with a smaller execution context. The second attempt also exhausted its budget before the research began.</p>
 
-      <h3>The numbers</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Activity</th><th>Input tokens</th><th>Outcome</th></tr></thead>
-          <tbody>
-            <tr><td>Initial research pilot</td><td class="num">~475,000</td><td>Completed and accepted</td></tr>
-            <tr><td>A/B coordination attempts</td><td class="num">~4.25 million</td><td>Neither arm launched</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="note">These figures came from recorded usage receipts. They are not billing totals, and the coordination subtotal excludes some additional activity.</p>
-      <p>Without detailed per-call attribution, I can't definitively say which coordination activities consumed the most tokens. But the overall result was clear: we spent substantially more effort preparing to compare the work than performing the original research task.</p>
+      <p>The result was clear: we spent substantially more effort preparing to compare the work than performing the original research task.</p>
+
+      <h3>This was a known cost, not a surprise</h3>
+      <p>In hindsight, the industry had already documented this pattern. I just hadn't taken it seriously enough.</p>
+      <ul>
+        <li><strong>Multi-agent systems are expensive by design.</strong> Anthropic reported that in their production research system, agents use about 4&times; the tokens of a chat interaction, and multi-agent systems about 15&times;. They also note that domains where every agent needs the same shared context, or where tasks have many dependencies, are a poor fit for multi-agent setups today. <a href="#ref-1">[1]</a></li>
+        <li><strong>Long context degrades performance.</strong> Chroma's evaluation of 18 models found that output becomes increasingly unreliable as input length grows, even on simple tasks. A coordinator that carries the whole history forward pays twice: more tokens, and worse reasoning over them. <a href="#ref-2">[2]</a></li>
+        <li><strong>Coordination is where multi-agent systems fail.</strong> A Berkeley-led study annotating more than 1,600 traces across 7 multi-agent frameworks grouped failures into system design, inter-agent misalignment, and task verification, and found that performance gains on popular benchmarks are often minimal. <a href="#ref-3">[3]</a></li>
+      </ul>
+      <p>My coordinator spent its budget establishing shared conditions that every arm depended on. That is close to the exact profile those sources warn against.</p>
 
       <h3>What I'd do differently</h3>
       <p>I'd avoid using a long-running conversational agent to coordinate independent engineering tasks unless that coordination provides a measurable benefit. Instead:</p>
@@ -132,12 +126,13 @@
         <li>Pass artifacts instead of entire conversation histories.</li>
         <li>Measure coordination overhead separately from execution.</li>
       </ul>
+      <p>This mirrors Anthropic's context-engineering guidance: treat context as a finite budget, aim for the smallest set of high-signal tokens, and have subagents return condensed summaries rather than their full working history. <a href="#ref-4">[4]</a></p>
       <p>A coordinator should exist because coordination adds value, not simply because the architecture supports another agent.</p>
       <div class="lesson"><p><strong>Lesson:</strong> Every agent handoff has a cost. Make sure the coordination is worth it.</p></div>
 
       <h2>2. Before Building Another Agent, Look at What You Already Have</h2>
       <p>One of the most useful exercises wasn't building an agent. It was taking inventory of the capabilities we already had.</p>
-      <p>Our engineering repository contained 26 reusable skill definitions covering activities such as:</p>
+      <p>Our engineering repository already contained a library of reusable skill definitions covering activities such as:</p>
       <ul>
         <li>Requirements analysis</li>
         <li>Pattern discovery</li>
@@ -158,6 +153,7 @@
       <p class="flow">Existing skill &rarr; Optional independent evaluation &rarr; Human decision</p>
       <p>For straightforward work, use the existing skill. For complex or ambiguous work, introduce an evaluator when independent review could meaningfully improve the result. For implementation and validation, continue using established engineering tools.</p>
       <p>It's not necessarily the most exciting architecture diagram. But it's easier to reason about, easier to maintain, and much less expensive to coordinate.</p>
+      <p>It's also the approach Anthropic recommends in <em>Building Effective Agents</em>: find the simplest solution that works, and add complexity only when it demonstrably improves outcomes, because agentic systems trade latency and cost for task performance. <a href="#ref-5">[5]</a></p>
       <div class="lesson"><p><strong>Lesson:</strong> Reuse capabilities before introducing agents. More agents don't automatically mean more value.</p></div>
 
       <h2>3. Sometimes the Best Agent Decision Is Not to Act</h2>
@@ -179,7 +175,7 @@
       <p>No parent coordinator. No A/B experiment. No additional agents. Just the existing engineering skills and tools.</p>
       <p>The task involved improving a static-analysis rule that recognized a particular problematic coding pattern but missed a related syntax variation. The improvement was small and well scoped. We extended the matcher, added positive and negative fixtures, and ran the validation suite.</p>
       <p>The tests passed. Then a review identified a potential false positive: the new matcher could recognize a similar operation on an unrelated data structure. That was a legitimate issue.</p>
-      <p>We tightened the rule, added regression cases, and validated it again. 360 tests passed. The build passed. The other local validation checks passed. At that point, the implementation looked healthy.</p>
+      <p>We tightened the rule, added regression cases, and validated it again. The full test suite passed. The build passed. The other local validation checks passed. At that point, the implementation looked healthy.</p>
       <p>But local correctness was only part of the question. We still needed to know whether the improvement was useful against representative source code. So we evaluated the previous and updated rule versions against selected real repositories.</p>
       <p>Both versions produced zero findings.</p>
       <p>Was that a failure? Not necessarily. The local fixtures demonstrated that the matcher recognized the intended syntax and rejected the tested counterexamples. The representative scan didn't reveal false positives. But it also didn't contain a production example exercising the new detection branch. That meant we couldn't establish real-world precision or improved recall for the new behavior.</p>
@@ -196,6 +192,7 @@
         <li><strong>Outcome value:</strong> Did it actually improve something that matters?</li>
       </ul>
       <p>Those are different levels of evidence.</p>
+      <p>Google's static-analysis team made the same point years ago. They judge a check by its <em>effective</em> false-positive rate, meaning whether developers actually act on its findings, and they refine checks against results on real code before enabling them. Passing fixtures is necessary; it isn't the bar. <a href="#ref-6">[6]</a></p>
       <div class="lesson"><p><strong>Lesson:</strong> A successful execution isn't necessarily a successful engineering outcome.</p></div>
 
       <h2>5. The Experiment Was Becoming the Project</h2>
@@ -263,6 +260,16 @@
       <p class="pull">The goal of agentic engineering shouldn't be to maximize autonomy. It should be to minimize the total effort required to reach a correct, evidence-backed outcome.</p>
       <p>That's the principle I'll be carrying into my next experiment.</p>
       <p class="closing">I'm curious how others are approaching this. If you've been experimenting with agentic engineering, where have you seen the biggest unexpected costs: orchestration, context management, evaluation, or something else?</p>
+
+      <h2>References</h2>
+      <ol class="refs">
+        <li id="ref-1">Anthropic Engineering, <a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener">How we built our multi-agent research system</a>.</li>
+        <li id="ref-2">Chroma Research, <a href="https://trychroma.com/research/context-rot" target="_blank" rel="noopener">Context Rot: How Increasing Input Tokens Impacts LLM Performance</a>.</li>
+        <li id="ref-3">Cemri, Pan, Yang, et al., <a href="https://arxiv.org/abs/2503.13657" target="_blank" rel="noopener">Why Do Multi-Agent LLM Systems Fail?</a> arXiv:2503.13657 (2025).</li>
+        <li id="ref-4">Anthropic Engineering, <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Effective context engineering for AI agents</a>.</li>
+        <li id="ref-5">Anthropic Engineering, <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Building effective agents</a>.</li>
+        <li id="ref-6">Sadowski et al., <a href="https://research.google/pubs/lessons-from-building-static-analysis-tools-at-google/" target="_blank" rel="noopener">Lessons from Building Static Analysis Tools at Google</a>, Communications of the ACM (2018).</li>
+      </ol>
     </article>
 
     <footer>
