@@ -12,34 +12,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --blue: #0b6bcb;
-        --blue-bright: #3d9be9;
-        --blue-deep: #0a4f94;
-        --navy: #081826;
-        --navy-2: #0b2237;
-        --hero-ink: #f2f7fc;
-        --hero-ink-dim: #b9cbdd;
-        --sheet-bg: #fbfcfd;
-        --sheet-ink: #16283a;
-        --sheet-ink-soft: #43586d;
-        --sheet-line: #d7e1ea;
-        --chip-bg: #eef4fa;
-        --chip-ink: #0a4f94;
-        --chip-line: #c3d6e8;
-        --page-bg: #e9eff5;
+        --blue: #5b21b6;
+        --blue-bright: #a78bfa;
+        --blue-deep: #4c1d95;
+        --navy: #12081f;
+        --navy-2: #26113f;
+        --hero-ink: #f3eefb;
+        --hero-ink-dim: #c7b9de;
+        --sheet-bg: #ffffff;
+        --sheet-ink: #1f1433;
+        --sheet-ink-soft: #5c4d72;
+        --sheet-line: #e4dcef;
+        --chip-bg: #f2ecfc;
+        --chip-ink: #4c1d95;
+        --chip-line: #d8c9f3;
+        --page-bg: #f1edf7;
         --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
         --sans: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --sheet-bg: #0d1b29;
-          --sheet-ink: #e8f0f7;
-          --sheet-ink-soft: #a9bdd1;
-          --sheet-line: #27405a;
-          --chip-bg: #12293f;
-          --chip-ink: #8fc3f0;
-          --chip-line: #2c4d70;
-          --page-bg: #050d16;
+          --sheet-bg: #1b0f2e;
+          --sheet-ink: #efe9f7;
+          --sheet-ink-soft: #b5a6cc;
+          --sheet-line: #33214f;
+          --chip-bg: #2a1745;
+          --chip-ink: #c4b5fd;
+          --chip-line: #4a2f78;
+          --page-bg: #0c0616;
         }
       }
 
@@ -79,7 +79,7 @@
       /* ---------- hero ---------- */
       .hero {
         background:
-          radial-gradient(1100px 480px at 85% -10%, rgba(61, 155, 233, 0.22), transparent 60%),
+          radial-gradient(1100px 480px at 85% -10%, rgba(139, 92, 246, 0.22), transparent 60%),
           linear-gradient(160deg, var(--navy-2), var(--navy) 55%);
         color: var(--hero-ink);
       }
@@ -106,7 +106,7 @@
         content: "";
         width: 1px;
         height: 0.95em;
-        background: rgba(143, 195, 240, 0.45);
+        background: rgba(196, 181, 253, 0.45);
         margin: 0 1.1rem;
       }
       .hero-main {
@@ -129,7 +129,7 @@
         height: clamp(120px, 22vw, 196px);
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid rgba(143, 195, 240, 0.55);
+        border: 2px solid rgba(196, 181, 253, 0.55);
         background: var(--navy-2);
       }
       .pill {
@@ -490,13 +490,13 @@
         color: var(--hero-ink);
         font-weight: 600;
         text-decoration: none;
-        border-bottom: 1px solid rgba(143, 195, 240, 0.4);
+        border-bottom: 1px solid rgba(196, 181, 253, 0.4);
       }
       .foot-links a:hover { color: var(--blue-bright); }
       .foot-note {
         margin: 0;
         padding-top: 1.4rem;
-        border-top: 1px solid rgba(185, 203, 221, 0.22);
+        border-top: 1px solid rgba(199, 185, 222, 0.22);
         font-size: 0.92rem;
         color: var(--hero-ink-dim);
         line-height: 1.6;
@@ -835,10 +835,10 @@
       (function () {
         // Donut: qualitative, illustrative split of a typical week.
         var data = [
-          { name: "Building the platform", pct: 34, color: "#0b6bcb" },
-          { name: "Reviewing agent output & tuning evals", pct: 24, color: "#2f8fe0" },
-          { name: "Incident & outage pattern work", pct: 18, color: "#57a8e8" },
-          { name: "Program leadership, planning & delivery", pct: 24, color: "#84c1f1" }
+          { name: "Building the platform", pct: 34, color: "#5b21b6" },
+          { name: "Reviewing agent output & tuning evals", pct: 24, color: "#7c3aed" },
+          { name: "Incident & outage pattern work", pct: 18, color: "#a78bfa" },
+          { name: "Program leadership, planning & delivery", pct: 24, color: "#c4b5fd" }
         ];
         var svg = document.getElementById("donut");
         var legend = document.getElementById("donutLegend");

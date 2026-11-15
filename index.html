@@ -84,6 +84,15 @@
       }
       .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 1.25rem; }
 
+      .elsewhere { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+      .elsewhere a { display: flex; flex-direction: column; gap: 0.35rem; padding: 1rem 1.25rem; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--ring); border-radius: 12px; color: var(--ink); text-decoration: none; }
+      .elsewhere a:hover { border-color: var(--ring); }
+      .elsewhere a:hover .ttl { color: var(--accent); }
+      .elsewhere .src { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--ink-soft); }
+      .elsewhere .kind { padding: 0.05rem 0.5rem; border: 1px solid var(--ring); border-radius: 6px; font-size: 0.78rem; font-weight: 500; color: var(--accent); }
+      .elsewhere .ttl { font-size: 1.15rem; font-weight: 700; line-height: 1.35; }
+      .elsewhere .ttl::after { content: " \2197"; font-weight: 400; color: var(--ink-soft); }
+      .elsewhere .sum { line-height: 1.55; color: var(--ink-soft); }
       footer { border-top: 1px solid var(--line); padding: 2rem 0 3rem; color: var(--ink-soft); font-size: 0.95rem; }
       footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
       footer p { margin: 0; }
@@ -123,6 +132,31 @@
             <p class="excerpt">A coordinator that spent its whole budget before the A/B test started, why reusing existing skills beat adding agents, and a rule change that passed every test but found nothing in real repos.</p>
           </div>
         </article>
+      </section>
+
+      <section id="elsewhere" aria-labelledby="elsewhere-h">
+        <h2 id="elsewhere-h">Featured elsewhere</h2>
+        <ul class="elsewhere">
+          <li>
+            <a href="https://medium.com/@Jtwalters25/in-my-element-at-mancode-bc5773490bf5" target="_blank" rel="noopener">
+              <span class="src">Medium <span class="kind">Essay by me</span></span>
+              <span class="ttl">In My Element at Mancode</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.continuum.uw.edu/story/scholarship/jeremiah-walters" target="_blank" rel="noopener">
+              <span class="src">UW Continuum College <span class="kind">Profile</span></span>
+              <span class="ttl">The Path to a Better Life</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.codefellows.org/blog/meet-jeremiah-from-bartender-to-azure-customer-support-engineer/" target="_blank" rel="noopener">
+              <span class="src">Code Fellows <span class="kind">Profile</span></span>
+              <span class="ttl">Meet Jeremiah: From Bartender to Azure Customer Support Engineer</span>
+              <span class="sum">From conversations with developers at the bar to supporting Azure customers at Microsoft. <time datetime="2020-06-02">June 2020</time>.</span>
+            </a>
+          </li>
+        </ul>
       </section>
 
       <section id="projects" aria-labelledby="projects-h">
