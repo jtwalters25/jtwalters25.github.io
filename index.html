@@ -51,7 +51,14 @@
       .hero { text-align: center; padding: 3rem 0 3.5rem; }
       .portrait { width: 136px; height: 136px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 4px var(--bg), 0 0 0 7px var(--ring); }
       .hero h1 { margin: 1.4rem 0 0.5rem; font-family: var(--serif); font-weight: 600; font-size: clamp(2.4rem, 7vw, 3.4rem); line-height: 1.05; }
-      .tagline { margin: 0; font-size: 1.15rem; color: var(--ink-soft); }
+      .lead { margin: 0 auto 0.6rem; max-width: 36rem; font-size: 1.3rem; font-weight: 600; line-height: 1.4; color: var(--ink); }
+      .tagline { margin: 0; font-size: 1.05rem; color: var(--ink-soft); }
+      .how { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
+      .how li { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.15rem 1.25rem; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--ring); border-radius: 12px; }
+      .how h3 { margin: 0; font-size: 1.15rem; }
+      .how p { margin: 0; line-height: 1.55; color: var(--ink-soft); }
+      .how a { margin-top: auto; font-size: 0.92rem; font-weight: 600; text-decoration: none; }
+      .how a:hover { text-decoration: underline; }
       .social { display: flex; justify-content: center; gap: 0.5rem; margin: 1.1rem 0 0; padding: 0; list-style: none; }
       .social a { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; color: var(--ink-soft); }
       .social a:hover { color: var(--accent); background: var(--accent-soft); }
@@ -104,6 +111,7 @@
       <nav class="nav" aria-label="Main">
         <a class="brand" href="./">Jeremiah Walters</a>
         <ul>
+          <li><a href="#how">How I work</a></li>
           <li><a href="#writing">Writing</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="resume.html">Resume</a></li>
@@ -113,7 +121,8 @@
       <header class="hero">
         <img class="portrait" src="images/jeremiah.jpg" width="136" height="136" alt="Portrait of Jeremiah Walters" />
         <h1>Jeremiah Walters</h1>
-        <p class="tagline">Father, builder, people-first engineer | Senior Software Engineer &amp; Delivery Lead at Microsoft</p>
+        <p class="lead">I turn ambiguous reliability problems into clear direction, and stay hands-on while I do it.</p>
+        <p class="tagline">Senior Software Engineer &amp; Delivery Lead, Azure Reliability at Microsoft</p>
         <ul class="social">
           <li><a href="https://github.com/jtwalters25" target="_blank" rel="noopener" aria-label="GitHub"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg></a></li>
           <li><a href="https://www.linkedin.com/in/jeremiahwalters" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45z"/></svg></a></li>
@@ -121,6 +130,32 @@
         </ul>
         <p class="motto">Intent before intelligence. Field notes on AI agents, reliability, and building for what people actually need. Slow is smooth, smooth is fast.</p>
       </header>
+
+      <section id="how" aria-labelledby="how-h">
+        <h2 id="how-h">How I work</h2>
+        <ul class="how">
+          <li>
+            <h3>Set direction</h3>
+            <p>I turn recurring outage themes into the checks my team builds next, and make the trends visible to leadership so priorities rest on evidence.</p>
+            <a href="writing/senior-to-principal.html">On impact and blast radius</a>
+          </li>
+          <li>
+            <h3>Make it happen</h3>
+            <p>I lead delivery for a program of engineers: early triage, clear owners, and nothing ships until its false positive rate is reviewed with the teams it affects.</p>
+            <a href="writing/leading-without-managing.html">On leading without managing</a>
+          </li>
+          <li>
+            <h3>Raise the bar</h3>
+            <p>I run working sessions where engineers defend their rules before they ship, and help maintain company-wide reliability guidance.</p>
+            <a href="writing/validate-the-slice.html">On validating before trusting</a>
+          </li>
+          <li>
+            <h3>Stay hands-on</h3>
+            <p>I write detection rules, built a company-wide reliability dashboard on my own, and lead UX on an AI risk-analysis agent.</p>
+            <a href="#projects">Things I've built</a>
+          </li>
+        </ul>
+      </section>
 
       <section id="writing" aria-labelledby="writing-h">
         <h2 id="writing-h">Latest writing</h2>
