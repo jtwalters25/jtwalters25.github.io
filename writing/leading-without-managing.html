@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="What I have learned leading a team without managing anyone: avoid the janitor trap, own coordination and escalation, keep it pointed, nudge instead of nag, and tell the truth upward." />
+    <meta name="author" content="Jeremiah Walters" />
+    <meta property="og:title" content="Leading a Team Without Being Anyone's Manager" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://jtwalters25.github.io/images/covers/leading-without-managing.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="data:," />
+    <title>Leading a Team Without Being Anyone's Manager | Jeremiah Walters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --accent: #5b21b6;
+        --accent-bright: #a78bfa;
+        --hero-1: #12081f;
+        --hero-2: #26113f;
+        --hero-ink: #f3eefb;
+        --hero-ink-dim: #c7b9de;
+        --sheet-bg: #ffffff;
+        --sheet-ink: #1f1433;
+        --sheet-ink-soft: #5c4d72;
+        --sheet-line: #e4dcef;
+        --chip-bg: #f2ecfc;
+        --page-bg: #f1edf7;
+        --fig-acc: #7c3aed;
+        --fig-acc-soft: #ddd0fb;
+        --fig-coin: #f2b705;
+        --fig-body: #8b5cf6;
+        --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+        --sans: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --sheet-bg: #1b0f2e;
+          --sheet-ink: #efe9f7;
+          --sheet-ink-soft: #b5a6cc;
+          --sheet-line: #33214f;
+          --chip-bg: #2a1745;
+          --page-bg: #0c0616;
+          --fig-acc: #a78bfa;
+          --fig-acc-soft: #3d2763;
+          --fig-body: #7c3aed;
+        }
+        a { color: var(--accent-bright); }
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: var(--sans); background: var(--page-bg); color: var(--sheet-ink); -webkit-font-smoothing: antialiased; }
+      a { color: var(--accent); }
+      :focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 3px; border-radius: 2px; }
+
+      .hero { background: radial-gradient(1100px 480px at 85% -10%, rgba(139, 92, 246, 0.30), transparent 60%), linear-gradient(160deg, var(--hero-2), var(--hero-1) 55%); color: var(--hero-ink); }
+      .hero-inner { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+      .back { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--hero-ink-dim); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
+      .back:hover { color: var(--hero-ink); text-decoration: underline; }
+      .kicker { margin: 1.5rem 0 0.75rem; color: var(--accent-bright); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+      h1 { margin: 0; font-weight: 300; font-size: clamp(2.1rem, 6vw, 3.3rem); line-height: 1.08; letter-spacing: -0.01em; }
+      .dek { margin: 1rem 0 0; font-family: var(--serif); font-style: italic; font-size: 1.2rem; line-height: 1.5; color: var(--hero-ink-dim); }
+      .byline { margin: 1.25rem 0 0; font-size: 0.9rem; color: var(--hero-ink-dim); }
+
+      article { max-width: 760px; margin: 0 auto; padding: 2.5rem 1rem 3rem; background: var(--sheet-bg); }
+      @media (min-width: 760px) { article { padding: 3rem 3rem 3.5rem; box-shadow: 0 0 0 1px var(--sheet-line); } }
+      article p, article li { font-family: var(--serif); font-size: 1.12rem; line-height: 1.7; }
+      article p { margin: 0 0 1.1rem; }
+      article ul { margin: 0 0 1.3rem; padding-left: 1.3rem; }
+      article li { margin-bottom: 0.35rem; }
+      article h2 { margin: 3rem 0 1.1rem; padding-top: 1.5rem; border-top: 1px solid var(--sheet-line); font-size: 1.5rem; font-weight: 600; line-height: 1.25; }
+      article h3 { margin: 2rem 0 0.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.02em; color: var(--sheet-ink-soft); }
+      .pull { margin: 1.5rem 0; font-family: var(--serif); font-size: 1.35rem; line-height: 1.45; font-style: italic; }
+      .lesson { margin: 1.75rem 0 0; padding: 1rem 1.2rem; background: var(--chip-bg); border-left: 3px solid var(--accent); border-radius: 0 4px 4px 0; }
+      .lesson p { margin: 0; font-family: var(--sans); font-size: 1rem; line-height: 1.6; }
+      .flow { font-family: var(--sans); font-weight: 600; font-size: 1.02rem; }
+      .refs li { font-family: var(--sans); font-size: 0.95rem; line-height: 1.55; color: var(--sheet-ink-soft); }
+      .refs li:target { color: var(--sheet-ink); }
+      .closing { font-weight: 600; }
+      figure { margin: 2.2rem 0; }
+      figure svg { display: block; width: 100%; height: auto; }
+      figure svg text { font-family: var(--sans); }
+      figcaption { margin-top: 0.7rem; font-family: var(--sans); font-size: 0.92rem; line-height: 1.5; color: var(--sheet-ink-soft); }
+      .t-ink { fill: var(--sheet-ink); } .t-soft { fill: var(--sheet-ink-soft); } .s-ink { stroke: var(--sheet-ink); } .s-line { stroke: var(--sheet-line); }
+      .f-acc { fill: var(--fig-acc); } .f-acc-soft { fill: var(--fig-acc-soft); } .s-acc { stroke: var(--fig-acc); } .f-body { fill: var(--fig-body); }
+      .f-surface { fill: var(--sheet-bg); } .f-chip { fill: var(--chip-bg); } .f-coin { fill: var(--fig-coin); }
+      .bar:hover { opacity: 0.85; }
+      .pair { display: grid; gap: 1.25rem; }
+      @media (min-width: 600px) { .pair { grid-template-columns: 1fr 1fr; } }
+      .pair h4 { margin: 0 0 0.5rem; font-size: 0.95rem; color: var(--sheet-ink-soft); }
+      .ladder { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
+      .ladder li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.2rem 0.75rem; align-items: start; padding: 0.85rem 1rem; border: 1px solid var(--sheet-line); border-radius: 10px; font-family: var(--sans); font-size: 1rem; line-height: 1.45; }
+      .ladder .n { grid-row: span 2; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--chip-bg); font-weight: 700; }
+      .ladder .q { color: var(--sheet-ink-soft); }
+      .status { justify-self: start; grid-column: 2; margin-top: 0.3rem; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--sheet-line); }
+      .status.pass { background: var(--fig-acc); border-color: var(--fig-acc); color: var(--sheet-bg); }
+      footer { max-width: 760px; margin: 0 auto 3rem; padding: 1.5rem 1rem; font-size: 0.9rem; color: var(--sheet-ink-soft); }
+      .own { display: grid; gap: 1rem; margin: 0; }
+      @media (min-width: 640px) { .own { grid-template-columns: repeat(3, 1fr); } }
+      .own section { padding: 1rem 1.1rem; border: 1px solid var(--sheet-line); border-radius: 12px; font-family: var(--sans); }
+      .own section.lead { border: 2px solid var(--fig-acc); background: var(--chip-bg); }
+      .own h4 { margin: 0 0 0.6rem; font-size: 1rem; }
+      .own ul { margin: 0; padding-left: 1.1rem; }
+      .own li { font-family: var(--sans); font-size: 0.95rem; line-height: 1.45; margin-bottom: 0.4rem; }
+      .own .not li { text-decoration: line-through; color: var(--sheet-ink-soft); }
+      .status-card { margin: 0; padding: 1.1rem 1.25rem; border: 2px solid var(--fig-acc); border-radius: 12px; font-family: var(--sans); }
+      .status-card dl { margin: 0; display: grid; gap: 0.8rem; }
+      .status-card dt { font-weight: 700; color: var(--fig-acc); }
+      .status-card dd { margin: 0.15rem 0 0; line-height: 1.5; }
+      .status-card .tag { display: inline-block; margin-bottom: 0.8rem; padding: 0.1rem 0.55rem; border-radius: 999px; background: var(--chip-bg); font-size: 0.8rem; font-weight: 600; color: var(--sheet-ink-soft); }
+      .checklist { margin: 0 0 1.3rem; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
+      .checklist li { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.6rem; align-items: start; margin: 0; padding: 0.85rem 1rem; border: 1px solid var(--sheet-line); border-radius: 10px; font-family: var(--sans); font-size: 1.02rem; line-height: 1.5; }
+      .checklist li::before { content: ""; width: 1.25rem; height: 1.25rem; margin-top: 0.1rem; border: 2px solid var(--fig-acc); border-radius: 4px; }
+      .anim-sweat { opacity: 0; }
+      @media (prefers-reduced-motion: no-preference) {
+        .anim-mop { transform-box: view-box; transform-origin: 402px 148px; animation: mop 2.4s ease-in-out infinite; }
+        .anim-sweat { animation: sweat 2.4s ease-in infinite; }
+        @keyframes mop { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(9deg); } }
+        @keyframes sweat { 0%, 40% { opacity: 0; transform: translateY(0); } 55% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-inner">
+        <a class="back" href="../">&larr; Jeremiah Walters</a>
+        <p class="kicker">Field notes</p>
+        <h1>Leading a Team Without Being Anyone's Manager</h1>
+        <p class="dek">Outcomes without authority, and without becoming the janitor.</p>
+        <p class="byline">By Jeremiah Walters &middot; <time datetime="2026-11">November 2026</time></p>
+      </div>
+    </header>
+
+    <article>
+      <p>There's a role most engineering orgs depend on and few describe well. You're accountable for a team delivering something. You run the standup. You track the risks. You answer when leadership asks, "Where are we?"</p>
+      <p>But nobody reports to you. You don't write reviews, approve time off or set pay.</p>
+      <p>Call it tech lead, squad lead or delivery lead. Will Larson's short version: the tech lead "guides the approach and execution of a particular team." <a href="#ref-1">[1]</a> The title varies. The tension doesn't.</p>
+      <p class="pull">You're responsible for outcomes without authority over the people producing them.</p>
+      <p>I do this job now. Here's what I've learned about doing it without burning out or turning into the team's unpaid project administrator.</p>
+
+      <h2>The Trap: Becoming the Team's Janitor</h2>
+      <p>The most common failure I see, and one I've committed myself, is confusing ownership with cleanup.</p>
+      <p>You own the feature, so when tickets go stale, you update them. When status is unclear, you chase it down and write it up yourself. When a task has no owner, you take it. When the tracker drifts from reality, you fix it on Sunday night so Monday's review looks right.</p>
+      <figure>
+        <svg viewBox="0 0 640 360" role="img" aria-labelledby="f1t">
+          <title id="f1t">Cartoon: late on a Sunday night, a tired robot labeled Lead mops the floor around scattered tickets reading stale, no owner, status? and blocked, sweating while a clock reads 11:48 PM.</title>
+          <circle cx="560" cy="56" r="26" class="f-coin"/><circle cx="572" cy="48" r="24" class="f-surface"/>
+          <text x="560" y="112" text-anchor="middle" font-size="14" class="t-soft">Sunday, 11:48 PM</text>
+          <ellipse cx="300" cy="340" rx="230" ry="12" class="f-acc-soft"/>
+          <g transform="translate(548 300) rotate(-8)"><rect x="-46" y="-16" width="92" height="32" rx="5" class="f-surface s-ink" stroke-width="1.8"/><text x="0" y="5" text-anchor="middle" font-size="12.5" font-weight="600" class="t-ink">stale</text></g><g transform="translate(580 250) rotate(6)"><rect x="-46" y="-16" width="92" height="32" rx="5" class="f-surface s-ink" stroke-width="1.8"/><text x="0" y="5" text-anchor="middle" font-size="12.5" font-weight="600" class="t-ink">no owner</text></g><g transform="translate(520 204) rotate(4)"><rect x="-46" y="-16" width="92" height="32" rx="5" class="f-surface s-ink" stroke-width="1.8"/><text x="0" y="5" text-anchor="middle" font-size="12.5" font-weight="600" class="t-ink">status?</text></g><g transform="translate(586 330) rotate(-3)"><rect x="-46" y="-16" width="92" height="32" rx="5" class="f-surface s-ink" stroke-width="1.8"/><text x="0" y="5" text-anchor="middle" font-size="12.5" font-weight="600" class="t-ink">blocked</text></g>
+          <g transform="translate(120 290)"><path d="M-34 -40 h68 l-8 48 h-52 z" class="f-chip s-ink" stroke-width="2.5"/><path d="M-30 -28 h60" class="s-acc" stroke-width="5"/></g>
+          <g transform="translate(300 212)">
+            <line x1="0" y1="-128" x2="0" y2="-150" class="s-ink" stroke-width="4"/><circle cx="0" cy="-154" r="7" class="f-coin"/><rect x="-56" y="-130" width="112" height="80" rx="20" class="f-body"/><rect x="-42" y="-116" width="84" height="52" rx="12" fill="#1f1433"/><path d="M-28 -94 h18 M10 -94 h18" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round"/><path d="M-26 -88 q8 5 16 0 M12 -88 q8 5 16 0" fill="none" stroke="#c4b5fd" stroke-width="2.5" stroke-linecap="round"/><path d="M-12 -74 q12 -6 24 0" fill="none" stroke="#c4b5fd" stroke-width="3.5" stroke-linecap="round"/><rect x="-70" y="-46" width="140" height="138" rx="24" class="f-body"/><rect x="-44" y="92" width="26" height="34" rx="8" class="f-body"/><rect x="18" y="92" width="26" height="34" rx="8" class="f-body"/>
+            <text x="0" y="16" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">LEAD</text>
+            <path class="anim-sweat" d="M66 -126 q8 12 0 18 q-8 -6 0 -18 Z" fill="#7dd3fc"/>
+          </g>
+          <path d="M232 196 Q 240 250 300 252" fill="none" class="s-ink" stroke-width="8" stroke-linecap="round"/>
+          <g class="anim-mop">
+            <path d="M368 190 L410 172" fill="none" class="s-ink" stroke-width="8" stroke-linecap="round"/>
+            <path d="M300 252 L420 214" fill="none" class="s-ink" stroke-width="8" stroke-linecap="round"/>
+            <line x1="402" y1="148" x2="448" y2="316" class="s-ink" stroke-width="6" stroke-linecap="round"/>
+            <path d="M422 310 h52 l8 22 h-68 z" class="f-acc"/>
+          </g>
+        </svg>
+        <figcaption>It feels responsible. It's actually corrosive.</figcaption>
+      </figure>
+      <p>Tanya Reilly named this years ago in her talk "Being Glue": the essential, invisible work that holds a team together, and that rarely counts when it's time for promotions. <a href="#ref-2">[2]</a> It's corrosive for three reasons:</p>
+      <ul>
+        <li><strong>It hides the real state of the team.</strong> If you're quietly patching every gap, nobody, including leadership, can see where the system is breaking.</li>
+        <li><strong>It takes ownership away from engineers.</strong> If the lead keeps everyone's work current, why would anyone else?</li>
+        <li><strong>It doesn't scale.</strong> Your time goes to maintenance instead of the things only a lead can do.</li>
+      </ul>
+      <div class="lesson"><p><strong>Lesson:</strong> If you fix every gap quietly, the gaps never get fixed. They just get hidden.</p></div>
+
+      <h2>What a Lead Actually Owns</h2>
+      <p>The model I've landed on is simple to say and hard to stick to.</p>
+      <p><strong>Each engineer owns keeping their own work visible, current and reviewable.</strong> Their tasks reflect reality, blockers are written down, and anyone could look at their items and understand where things stand. That's not bureaucracy. It's basic professional courtesy to the rest of the team.</p>
+      <p><strong>The lead owns coordination and escalation.</strong> That means agreeing on what "done" means for the current goal, spotting dependencies and collisions before they become problems, escalating blockers the team can't clear on its own, saying "no" or "not yet" to work that doesn't serve the goal, and telling the truth upward about status, even when it's bad.</p>
+      <figure>
+        <div class="own">
+          <section><h4>Each engineer owns</h4><ul><li>Tasks that reflect reality</li><li>Blockers written down</li><li>Work anyone can read and understand</li></ul></section>
+          <section class="lead"><h4>The lead owns</h4><ul><li>A shared definition of done</li><li>Dependencies and collisions</li><li>Fast, specific escalation</li><li>"No" or "not yet"</li><li>The truth, upward</li></ul></section>
+          <section class="not"><h4>Not on the lead's list</h4><ul><li>Rewriting other people's tickets</li><li>Maintaining every child task</li><li>Carrying status in your head</li></ul></section>
+        </div>
+        <figcaption>Ownership, split the way it scales. The third column is where leads burn out.</figcaption>
+      </figure>
+      <p>Notice what's not on the list.</p>
+
+      <h2>Influence Without Authority</h2>
+      <p>If you can't direct people, what do you have? More than you'd think.</p>
+      <p><strong>Clarity.</strong> The most underrated leadership tool is a clear, written statement of what we're doing and why. When the goal is fuzzy, people fill the gap with their own priorities. When it's pointed, most coordination problems disappear. Google's research on effective teams found the same thing: "structure and clarity," meaning clear roles, goals and plans, was one of five dynamics that set its best teams apart. <a href="#ref-3">[3]</a></p>
+      <p><strong>Visibility.</strong> I use visibility, not pressure. A short weekly summary of where each piece stands, pulled from what people recorded themselves, does more than any number of reminders. People respond to seeing their work in the context of the whole.</p>
+      <p><strong>Escalation as a service.</strong> Engineers often don't escalate because it feels like complaining. A good lead makes escalation cheap: "Tell me what's blocking you, and I'll take it to the right person." That turns you from a status collector into someone who removes obstacles. People notice the difference.</p>
+      <p><strong>Credibility from doing the work.</strong> Leads who still ship, even small things, have a standing that pure coordinators don't. You don't need to be the strongest engineer in the room. You do need to understand the work well enough to know when an estimate is fiction.</p>
+
+      <h2>Pointed, Not Fuzzy</h2>
+      <p>The habit I work hardest at is keeping every meeting and message pointed instead of fuzzy.</p>
+      <figure>
+        <svg viewBox="0 0 640 250" role="img" aria-labelledby="f3t">
+          <title id="f3t">Two status updates. A fuzzy cloud says: we're making good progress, a few concerns, let's keep an eye on it. Nobody can act on it. A pointed one says: two of three pieces done, the third blocked on an access request, need a decision by Thursday. Anyone can act on it.</title>
+          <path d="M60 70 q-40 0 -40 40 q0 34 34 38 q4 32 44 30 q20 24 58 12 q36 18 62 -6 q40 4 44 -32 q30 -10 18 -44 q6 -38 -40 -40 q-14 -30 -56 -22 q-30 -24 -66 -2 q-46 -10 -58 26 z" class="f-acc-soft"/>
+          <text x="148" y="98" text-anchor="middle" font-size="14" font-style="italic" class="t-soft">"We're making good progress."</text>
+          <text x="148" y="122" text-anchor="middle" font-size="14" font-style="italic" class="t-soft">"There are a few concerns."</text>
+          <text x="148" y="146" text-anchor="middle" font-size="14" font-style="italic" class="t-soft">"Let's keep an eye on it."</text>
+          <text x="148" y="226" text-anchor="middle" font-size="15" font-weight="700" class="t-ink">&#10005; Fuzzy: nobody can act on it</text>
+          <path d="M346 40 h270 a10 10 0 0 1 10 10 v120 a10 10 0 0 1 -10 10 h-212 l-26 22 v-22 h-32 a10 10 0 0 1 -10 -10 v-120 a10 10 0 0 1 10 -10 z" class="f-surface s-acc" stroke-width="2.5"/>
+          <text x="364" y="72" font-size="14" class="t-ink"><tspan font-weight="700">2 of 3</tspan> pieces are done.</text>
+          <text x="364" y="98" font-size="14" class="t-ink">The 3rd is <tspan font-weight="700">blocked on an</tspan></text>
+          <text x="364" y="120" font-size="14" class="t-ink"><tspan font-weight="700">access request</tspan>.</text>
+          <text x="364" y="148" font-size="14" class="t-ink">I need a <tspan font-weight="700">decision by Thursday</tspan>.</text>
+          <text x="486" y="226" text-anchor="middle" font-size="15" font-weight="700" class="f-acc">&#10003; Pointed: anyone can act on it</text>
+        </svg>
+        <figcaption>Signal over noise. Same team, same week, two very different updates.</figcaption>
+      </figure>
+      <p>In meetings, that means:</p>
+      <ul>
+        <li><strong>Start with the decision or question, not the background.</strong> If there's nothing to decide, it might be a message, not a meeting.</li>
+        <li><strong>Every topic ends with an owner and a next step,</strong> or it's explicitly parked.</li>
+        <li><strong>Separate facts from opinions.</strong> "It's late" is a fact. "I think it'll slip again" is a judgment. Both are useful. Mixing them isn't.</li>
+      </ul>
+      <p>In writing, it means signal over noise. A status update isn't proof of how busy the team was. It's the few things the reader needs to know or do. If an update has ten bullets and one of them matters, the one that matters gets lost.</p>
+      <div class="lesson"><p><strong>Lesson:</strong> A team used to pointed communication escalates sooner, argues less and spends less time in meetings.</p></div>
+
+      <h2>Nudges, Not Nagging</h2>
+      <p>Every lead eventually has to deal with stale work. The question is how.</p>
+      <p><strong>Nagging</strong> is personal, repetitive and scattered: individual pings, follow-ups to follow-ups, the same reminder in three channels.</p>
+      <p><strong>A nudge</strong> is predictable, consistent and impersonal: the same short message, at the same time each week, showing everyone the same view. It doesn't single anyone out.</p>
+      <figure>
+        <svg viewBox="0 0 640 250" role="img" aria-labelledby="f4t">
+          <title id="f4t">Nagging versus a nudge. On the left, scattered pings: any update, following up, bump, just checking, ping, quick one. On the right, a four-week calendar with one bell every Monday: the same short message at the same time each week.</title>
+          <g transform="translate(80 60)"><rect x="-50" y="-14" width="100" height="28" rx="14" class="f-chip s-line" stroke-width="1.5"/><text y="5" text-anchor="middle" font-size="12.5" class="t-ink">any update?</text></g><g transform="translate(210 84)"><rect x="-50" y="-14" width="100" height="28" rx="14" class="f-chip s-line" stroke-width="1.5"/><text y="5" text-anchor="middle" font-size="12.5" class="t-ink">following up</text></g><g transform="translate(110 120)"><rect x="-50" y="-14" width="100" height="28" rx="14" class="f-chip s-line" stroke-width="1.5"/><text y="5" text-anchor="middle" font-size="12.5" class="t-ink">bump</text></g><g transform="translate(240 150)"><rect x="-50" y="-14" width="100" height="28" rx="14" class="f-chip s-line" stroke-width="1.5"/><text y="5" text-anchor="middle" font-size="12.5" class="t-ink">just checking</text></g><g transform="translate(70 176)"><rect x="-50" y="-14" width="100" height="28" rx="14" class="f-chip s-line" stroke-width="1.5"/><text y="5" text-anchor="middle" font-size="12.5" class="t-ink">ping</text></g><g transform="translate(190 200)"><rect x="-50" y="-14" width="100" height="28" rx="14" class="f-chip s-line" stroke-width="1.5"/><text y="5" text-anchor="middle" font-size="12.5" class="t-ink">quick one?</text></g>
+          <text x="155" y="240" text-anchor="middle" font-size="15" font-weight="700" class="t-ink">Nagging: personal, scattered</text>
+          <text x="476" y="30" text-anchor="middle" font-size="13" class="t-soft">same message, same time, same view</text>
+          <text x="372" y="58" text-anchor="middle" font-size="12.5" class="t-soft">Mon</text><text x="424" y="58" text-anchor="middle" font-size="12.5" class="t-soft">Tue</text><text x="476" y="58" text-anchor="middle" font-size="12.5" class="t-soft">Wed</text><text x="528" y="58" text-anchor="middle" font-size="12.5" class="t-soft">Thu</text><text x="580" y="58" text-anchor="middle" font-size="12.5" class="t-soft">Fri</text><rect x="350" y="70" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="402" y="70" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="454" y="70" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="506" y="70" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="558" y="70" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><g transform="translate(372 84)"><path d="M-7 5 h14 l-2 -3 v-5 a5 5 0 0 0 -10 0 v5 z" class="f-acc"/><circle cx="0" cy="8" r="2" class="f-acc"/></g><rect x="350" y="106" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="402" y="106" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="454" y="106" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="506" y="106" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="558" y="106" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><g transform="translate(372 120)"><path d="M-7 5 h14 l-2 -3 v-5 a5 5 0 0 0 -10 0 v5 z" class="f-acc"/><circle cx="0" cy="8" r="2" class="f-acc"/></g><rect x="350" y="142" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="402" y="142" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="454" y="142" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="506" y="142" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="558" y="142" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><g transform="translate(372 156)"><path d="M-7 5 h14 l-2 -3 v-5 a5 5 0 0 0 -10 0 v5 z" class="f-acc"/><circle cx="0" cy="8" r="2" class="f-acc"/></g><rect x="350" y="178" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="402" y="178" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="454" y="178" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="506" y="178" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><rect x="558" y="178" width="44" height="28" rx="5" class="f-surface s-line" stroke-width="1.5"/><g transform="translate(372 192)"><path d="M-7 5 h14 l-2 -3 v-5 a5 5 0 0 0 -10 0 v5 z" class="f-acc"/><circle cx="0" cy="8" r="2" class="f-acc"/></g>
+          <text x="476" y="240" text-anchor="middle" font-size="15" font-weight="700" class="f-acc">Nudge: predictable, impersonal</text>
+        </svg>
+        <figcaption>A nudge makes the expectation part of the team's rhythm instead of a conversation about one person.</figcaption>
+      </figure>
+      <p>If you automate a nudge, roll it out like code. Send it only to yourself first and ask whether it's helpful or annoying. Then try a small pilot. Then go wide.</p>
+
+      <h2>Saying the Hard Thing Upward</h2>
+      <p>The part of this role that matters most to leadership is also the part people avoid: reporting bad news early.</p>
+      <p>A lead who says "we're at risk on this date, here's why, here's what would fix it" two weeks out is worth far more than one who reports green until the day before. Without managerial authority, your credibility is most of what you have. Spend it on honesty.</p>
+      <p>My format for a hard status update is three lines: what's true, what it means, and what I need.</p>
+      <figure>
+        <div class="status-card">
+          <span class="tag">Example</span>
+          <dl>
+            <div><dt>What's true</dt><dd>Integration testing found two blockers. One needs a fix from another team.</dd></div>
+            <div><dt>What it means</dt><dd>The release date is at risk by about a week.</dd></div>
+            <div><dt>What I need</dt><dd>A decision by Thursday: cut the reporting feature, or move the date.</dd></div>
+          </dl>
+        </div>
+        <figcaption>Three lines, sent two weeks out instead of the day before.</figcaption>
+      </figure>
+
+      <h2>What I'd Tell a New Lead</h2>
+      <ul class="checklist">
+        <li>Write down what each person owns and what you own. Share it. Revisit it when it drifts.</li>
+        <li>Don't fix what the team should fix. Point at it, offer help and let the gap be seen.</li>
+        <li>Protect a few hours a week for work only you can do: the next goal, the risks no one is watching and the people who need unblocking.</li>
+        <li>Keep meetings and messages pointed. Signal over noise.</li>
+        <li>Make escalation easy, and use it fast.</li>
+        <li>Tell the truth upward. Early.</li>
+      </ul>
+      <p>Leading without managing is a real skill, and it's increasingly how good engineering work gets done.</p>
+      <p class="closing">The goal isn't control. It's a team where the state of the work is obvious, blockers get removed and nobody has to clean up after anyone.</p>
+
+      <h2>References</h2>
+      <ol class="refs">
+        <li id="ref-1">Will Larson, <a href="https://staffeng.com/guides/staff-archetypes/" target="_blank" rel="noopener">Staff archetypes</a>, StaffEng.</li>
+        <li id="ref-2">Tanya Reilly, <a href="https://www.slideshare.net/TanyaReilly/being-glue" target="_blank" rel="noopener">Being Glue</a> (2019).</li>
+        <li id="ref-3">Google, <a href="https://business.google.com/us/think/future-of-marketing/five-dynamics-effective-team/" target="_blank" rel="noopener">Five dynamics of effective teams</a>.</li>
+      </ol>
+    </article>
+
+    <footer>
+      <a href="../">&larr; Back to Jeremiah Walters</a> &middot;
+      <a href="https://www.linkedin.com/in/jeremiahwalters" target="_blank" rel="noopener">LinkedIn</a> &middot;
+      <a href="https://github.com/jtwalters25" target="_blank" rel="noopener">GitHub</a>
+    </footer>
+  </body>
+</html>
