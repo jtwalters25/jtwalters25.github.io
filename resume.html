@@ -326,6 +326,8 @@
         line-height: 1.65;
         color: var(--sheet-ink-soft);
       }
+      .role-how { margin: 0.6rem 0 0.8rem; padding-left: 1.1rem; line-height: 1.55; }
+      .role-how li { margin: 0.35rem 0; }
       .takeaway {
         margin: 0.85rem 0 0;
         padding-left: 1rem;
@@ -576,10 +578,10 @@
 
         <p class="intro">
           <strong>Senior Software Engineer &amp; Delivery Lead at Microsoft, in Azure Reliability.</strong>
-          I lead delivery for a multi-squad program building an AI-powered risk-analysis agent platform that
-          Azure engineering and SRE leadership rely on every day — owning the roadmap and the engineering
-          behind it — and I write the guardrails that keep agents honest: retrieval, tool use,
-          and evaluation workflows that verify an agent's work before anyone has to trust it.
+          I turn ambiguous reliability problems into clear direction and stay hands-on while I do it.
+          I translate engineering work into value leadership can act on, connect engineers to the right
+          problems, and set the bar for how we ship, including the guardrails that verify an AI agent's
+          work before anyone has to trust it.
         </p>
       </div>
     </header>
@@ -617,13 +619,12 @@
                 <li>Cross-Team Delivery</li>
                 <li>Roadmaps &amp; Milestones</li>
               </ul>
-              <p class="role-desc">
-                Leads delivery for a program of 10+ engineers across squads building an AI-powered
-                risk-analysis agent platform used daily by Azure engineering and SRE leadership. Writes
-                scanner rules for throttling and retry anti-patterns, and builds evaluation workflows so
-                agent output is verified before it is trusted — technical program leadership across
-                squads as much as hands-on engineering.
-              </p>
+              <ul class="role-how" aria-label="How I work in this role">
+                <li><strong>Set direction:</strong> turn recurring outage themes into the detection rules the team builds next, and make throttling trends visible to engineers and leadership through a company-wide dashboard I built.</li>
+                <li><strong>Make it happen:</strong> lead delivery for a program of 10+ engineers across squads building an AI-powered risk-analysis agent platform used daily by Azure engineering and SRE leadership.</li>
+                <li><strong>Raise the bar:</strong> run validation sessions where engineers defend their rules before release, share false positive rates with affected teams before merge, and help maintain company-wide reliability guidance.</li>
+                <li><strong>Stay hands-on:</strong> write scanner rules for throttling and retry anti-patterns, build evaluation workflows that verify agent output, and lead UX on the risk-analysis agent.</li>
+              </ul>
               <ul class="role-metrics" aria-label="Quantified results in current role">
                 <li><strong>8</strong> static-analysis scanners / scanner rules in production pipelines</li>
                 <li><strong>253</strong> audited detections at a <strong>91.7%</strong> true-positive rate</li>
