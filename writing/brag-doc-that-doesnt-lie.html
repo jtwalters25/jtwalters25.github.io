@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="A brag document that stays honest: label every claim Confirmed, Inferred or Missing, separate your work from the team's, keep a weekly rhythm, and make it safe to share." />
+    <meta name="author" content="Jeremiah Walters" />
+    <meta property="og:title" content="Keep a Brag Doc That Doesn't Lie" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://jtwalters25.github.io/images/covers/brag-doc-that-doesnt-lie.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="data:," />
+    <title>Keep a Brag Doc That Doesn't Lie | Jeremiah Walters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --accent: #5b21b6;
+        --accent-bright: #a78bfa;
+        --hero-1: #12081f;
+        --hero-2: #26113f;
+        --hero-ink: #f3eefb;
+        --hero-ink-dim: #c7b9de;
+        --sheet-bg: #ffffff;
+        --sheet-ink: #1f1433;
+        --sheet-ink-soft: #5c4d72;
+        --sheet-line: #e4dcef;
+        --chip-bg: #f2ecfc;
+        --page-bg: #f1edf7;
+        --fig-acc: #7c3aed;
+        --fig-acc-soft: #ddd0fb;
+        --fig-coin: #f2b705;
+        --fig-body: #8b5cf6;
+        --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+        --sans: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --sheet-bg: #1b0f2e;
+          --sheet-ink: #efe9f7;
+          --sheet-ink-soft: #b5a6cc;
+          --sheet-line: #33214f;
+          --chip-bg: #2a1745;
+          --page-bg: #0c0616;
+          --fig-acc: #a78bfa;
+          --fig-acc-soft: #3d2763;
+          --fig-body: #7c3aed;
+        }
+        a { color: var(--accent-bright); }
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: var(--sans); background: var(--page-bg); color: var(--sheet-ink); -webkit-font-smoothing: antialiased; }
+      a { color: var(--accent); }
+      :focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 3px; border-radius: 2px; }
+
+      .hero { background: radial-gradient(1100px 480px at 85% -10%, rgba(139, 92, 246, 0.30), transparent 60%), linear-gradient(160deg, var(--hero-2), var(--hero-1) 55%); color: var(--hero-ink); }
+      .hero-inner { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+      .back { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--hero-ink-dim); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
+      .back:hover { color: var(--hero-ink); text-decoration: underline; }
+      .kicker { margin: 1.5rem 0 0.75rem; color: var(--accent-bright); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+      h1 { margin: 0; font-weight: 300; font-size: clamp(2.1rem, 6vw, 3.3rem); line-height: 1.08; letter-spacing: -0.01em; }
+      .dek { margin: 1rem 0 0; font-family: var(--serif); font-style: italic; font-size: 1.2rem; line-height: 1.5; color: var(--hero-ink-dim); }
+      .byline { margin: 1.25rem 0 0; font-size: 0.9rem; color: var(--hero-ink-dim); }
+
+      article { max-width: 760px; margin: 0 auto; padding: 2.5rem 1rem 3rem; background: var(--sheet-bg); }
+      @media (min-width: 760px) { article { padding: 3rem 3rem 3.5rem; box-shadow: 0 0 0 1px var(--sheet-line); } }
+      article p, article li { font-family: var(--serif); font-size: 1.12rem; line-height: 1.7; }
+      article p { margin: 0 0 1.1rem; }
+      article ul { margin: 0 0 1.3rem; padding-left: 1.3rem; }
+      article li { margin-bottom: 0.35rem; }
+      article h2 { margin: 3rem 0 1.1rem; padding-top: 1.5rem; border-top: 1px solid var(--sheet-line); font-size: 1.5rem; font-weight: 600; line-height: 1.25; }
+      article h3 { margin: 2rem 0 0.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.02em; color: var(--sheet-ink-soft); }
+      .pull { margin: 1.5rem 0; font-family: var(--serif); font-size: 1.35rem; line-height: 1.45; font-style: italic; }
+      .lesson { margin: 1.75rem 0 0; padding: 1rem 1.2rem; background: var(--chip-bg); border-left: 3px solid var(--accent); border-radius: 0 4px 4px 0; }
+      .lesson p { margin: 0; font-family: var(--sans); font-size: 1rem; line-height: 1.6; }
+      .flow { font-family: var(--sans); font-weight: 600; font-size: 1.02rem; }
+      .refs li { font-family: var(--sans); font-size: 0.95rem; line-height: 1.55; color: var(--sheet-ink-soft); }
+      .refs li:target { color: var(--sheet-ink); }
+      .closing { font-weight: 600; }
+      figure { margin: 2.2rem 0; }
+      figure svg { display: block; width: 100%; height: auto; }
+      figure svg text { font-family: var(--sans); }
+      figcaption { margin-top: 0.7rem; font-family: var(--sans); font-size: 0.92rem; line-height: 1.5; color: var(--sheet-ink-soft); }
+      .t-ink { fill: var(--sheet-ink); } .t-soft { fill: var(--sheet-ink-soft); } .s-ink { stroke: var(--sheet-ink); } .s-line { stroke: var(--sheet-line); }
+      .f-acc { fill: var(--fig-acc); } .f-acc-soft { fill: var(--fig-acc-soft); } .s-acc { stroke: var(--fig-acc); } .f-body { fill: var(--fig-body); }
+      .f-surface { fill: var(--sheet-bg); } .f-chip { fill: var(--chip-bg); } .f-coin { fill: var(--fig-coin); }
+      .bar:hover { opacity: 0.85; }
+      .pair { display: grid; gap: 1.25rem; }
+      @media (min-width: 600px) { .pair { grid-template-columns: 1fr 1fr; } }
+      .pair h4 { margin: 0 0 0.5rem; font-size: 0.95rem; color: var(--sheet-ink-soft); }
+      .ladder { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
+      .ladder li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.2rem 0.75rem; align-items: start; padding: 0.85rem 1rem; border: 1px solid var(--sheet-line); border-radius: 10px; font-family: var(--sans); font-size: 1rem; line-height: 1.45; }
+      .ladder .n { grid-row: span 2; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--chip-bg); font-weight: 700; }
+      .ladder .q { color: var(--sheet-ink-soft); }
+      .status { justify-self: start; grid-column: 2; margin-top: 0.3rem; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--sheet-line); }
+      .status.pass { background: var(--fig-acc); border-color: var(--fig-acc); color: var(--sheet-bg); }
+      footer { max-width: 760px; margin: 0 auto 3rem; padding: 1.5rem 1rem; font-size: 0.9rem; color: var(--sheet-ink-soft); }
+      .labels { display: grid; gap: 1rem; }
+      @media (min-width: 640px) { .labels { grid-template-columns: repeat(3, 1fr); } }
+      .labels section { padding: 1rem 1.1rem; border: 1px solid var(--sheet-line); border-radius: 12px; font-family: var(--sans); }
+      .labels h4 { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.5rem; font-size: 1.05rem; }
+      .labels p { margin: 0 0 0.5rem; font-family: var(--sans); font-size: 0.95rem; line-height: 1.5; }
+      .labels .ex { font-style: italic; color: var(--sheet-ink-soft); }
+      .labels .next { margin: 0; font-weight: 600; color: var(--fig-acc); }
+      .compare { display: grid; gap: 1rem; }
+      @media (min-width: 640px) { .compare { grid-template-columns: 1fr 1.4fr; } }
+      .compare section { padding: 1rem 1.1rem; border: 1px solid var(--sheet-line); border-radius: 12px; font-family: var(--sans); }
+      .compare section.strong { border: 2px solid var(--fig-acc); }
+      .compare h4 { margin: 0 0 0.6rem; font-size: 0.95rem; color: var(--sheet-ink-soft); }
+      .compare blockquote { margin: 0 0 0.6rem; padding: 0.6rem 0.8rem; border-radius: 8px; background: var(--chip-bg); font-family: var(--sans); font-size: 0.98rem; line-height: 1.5; }
+      .compare .weak blockquote { text-decoration: line-through; color: var(--sheet-ink-soft); }
+      .compare .note { margin: 0; font-size: 0.9rem; color: var(--sheet-ink-soft); font-family: var(--sans); }
+      pre.template { margin: 0 0 1.3rem; padding: 1rem 1.1rem; border-radius: 10px; background: var(--chip-bg); overflow-x: auto; font: 0.92rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .redact { display: inline-block; min-width: 4.5em; height: 1em; vertical-align: -0.1em; border-radius: 3px; background: var(--sheet-ink); }
+      .badge { display: inline-flex; width: 1.4rem; height: 1.4rem; }
+      .face-b, .entry-b, .anim-pop { opacity: 0; }
+      @media (prefers-reduced-motion: no-preference) {
+        .anim-balloon { transform-box: fill-box; transform-origin: 50% 100%; animation: inflate 7s ease-in-out infinite; }
+        .face-a, .entry-a { animation: show-a 7s step-end infinite; }
+        .face-b, .entry-b { animation: show-b 7s step-end infinite; }
+        .anim-pop { animation: pop 7s step-end infinite; }
+        @keyframes inflate { 0% { transform: scale(0.75); opacity: 1; } 80% { transform: scale(1.55); opacity: 1; } 86% { transform: scale(1.7); opacity: 0; } 100% { transform: scale(0.75); opacity: 0; } }
+        @keyframes show-a { 0% { opacity: 1; } 45% { opacity: 0; } 92% { opacity: 1; } }
+        @keyframes show-b { 0% { opacity: 0; } 45% { opacity: 1; } 92% { opacity: 0; } }
+        @keyframes pop { 0% { opacity: 0; } 82% { opacity: 1; } 90% { opacity: 0; } }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-inner">
+        <a class="back" href="../">&larr; Jeremiah Walters</a>
+        <p class="kicker">Field notes</p>
+        <h1>Keep a Brag Doc That Doesn't Lie</h1>
+        <p class="dek">Every claim labeled by how sure you are.</p>
+        <p class="byline">By Jeremiah Walters &middot; <time datetime="2026-11">November 2026</time></p>
+      </div>
+    </header>
+
+    <article>
+      <p>Most engineers have heard the advice: keep a running document of your accomplishments, so when review season or a job search arrives, you aren't relying on memory. Julia Evans helped popularize it as the brag document. <a href="#ref-1">[1]</a> It's good advice, and I follow it.</p>
+      <p>But I've noticed a problem. Brag docs drift.</p>
+      <figure>
+        <svg viewBox="0 0 640 380" role="img" aria-labelledby="f1t">
+          <title id="f1t">Animated cartoon: a robot holds a balloon that inflates from a label reading helped with into one reading I led it, while its brag doc entry drifts from month 1, helped with the migration, to month 6, led the migration. Then the balloon pops.</title>
+          <ellipse cx="170" cy="368" rx="100" ry="10" class="f-acc-soft"/>
+          <path d="M260 200 L300 168" class="s-ink" stroke-width="2" fill="none"/>
+          <g class="anim-balloon">
+            <ellipse cx="300" cy="114" rx="46" ry="52" class="f-acc"/>
+            <path d="M294 166 l6 -2 l6 2 z" class="f-acc"/>
+            <text class="entry-a" x="300" y="119" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">helped with</text>
+            <text class="entry-b" x="300" y="120" text-anchor="middle" font-size="15" font-weight="800" fill="#ffffff">I LED IT</text>
+          </g>
+          <text class="anim-pop f-coin" x="300" y="110" text-anchor="middle" font-size="30" font-weight="800">POP</text>
+          <g transform="translate(170 262) scale(0.8)">
+            <path d="M70 -20 L112 -78" class="s-ink" stroke-width="9" stroke-linecap="round"/>
+            <path d="M-70 -20 L-100 30" class="s-ink" stroke-width="9" stroke-linecap="round"/>
+            <line x1="0" y1="-128" x2="0" y2="-150" class="s-ink" stroke-width="4"/><circle cx="0" cy="-154" r="7" class="f-coin"/><rect x="-56" y="-130" width="112" height="80" rx="20" class="f-body"/><rect x="-42" y="-116" width="84" height="52" rx="12" fill="#1f1433"/><g class="face-a"><path d="M-28 -90 q9 -11 18 0 M10 -90 q9 -11 18 0" fill="none" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round"/><path d="M-14 -78 q14 12 28 0" fill="none" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round"/></g><g class="face-b"><path d="M-30 -96 l16 4 M30 -96 l-16 4" stroke="#c4b5fd" stroke-width="3" stroke-linecap="round"/><circle cx="-18" cy="-86" r="5" fill="#c4b5fd"/><circle cx="18" cy="-86" r="5" fill="#c4b5fd"/><path d="M-16 -78 q16 16 32 0 z" fill="#c4b5fd"/></g><rect x="-70" y="-46" width="140" height="138" rx="24" class="f-body"/><rect x="-44" y="92" width="26" height="34" rx="8" class="f-body"/><rect x="18" y="92" width="26" height="34" rx="8" class="f-body"/>
+          </g>
+          <rect x="400" y="120" width="220" height="132" rx="12" class="f-surface s-acc" stroke-width="2"/>
+          <text x="418" y="150" font-size="13" font-weight="700" class="t-soft">MY BRAG DOC</text>
+          <text class="entry-a t-soft" x="602" y="150" text-anchor="end" font-size="13">month 1</text>
+          <text class="entry-b t-soft" x="602" y="150" text-anchor="end" font-size="13">month 6</text>
+          <line x1="418" y1="162" x2="602" y2="162" class="s-line" stroke-width="1.5"/>
+          <text class="entry-a t-ink" x="418" y="196" font-size="15">Helped with the</text>
+          <text class="entry-a t-ink" x="418" y="218" font-size="15">migration.</text>
+          <text class="entry-b t-ink" x="418" y="196" font-size="15" font-weight="700">Led the migration.</text>
+          <text class="entry-b t-soft" x="418" y="218" font-size="13">(nobody changed it on purpose)</text>
+        </svg>
+        <figcaption>Brag docs drift. Nobody sets out to lie. The doc just bends toward self-promotion.</figcaption>
+      </figure>
+      <p>Over months, "I helped with" becomes "I led." An estimate becomes a metric. A team result becomes a personal one. Not because anyone sets out to lie, but because a document written for self-promotion slowly bends toward it.</p>
+      <p>That matters for two reasons. First, people can tell. A reviewer or interviewer who probes one inflated claim will discount the rest. Second, and more important, an inflated record stops being useful to you. If you can't trust your own evidence, you can't use it to make real decisions about where you're growing and where you're not.</p>
+      <p>So I keep a different kind of brag doc. Here's how it works.</p>
+
+      <h2>Label Every Claim by How Sure You Are</h2>
+      <p>Every entry gets one of three labels:</p>
+      <figure>
+        <div class="labels">
+          <section><h4><svg class="badge" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" class="f-acc"/><path d="M7 12 l3 3 l7 -7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg> Confirmed</h4><p>I can point to evidence: a shipped change, a document, a written decision, a message acknowledging the result.</p><p class="next">Ready to use.</p></section>
+          <section><h4><svg class="badge" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" class="s-acc" stroke-width="2.2" stroke-dasharray="3 3"/></svg> Inferred</h4><p>I believe it's true, but I'm reasoning from indirect signals.</p><p class="ex">"This probably reduced on-call load."</p><p class="next">Next: get the data or ask someone.</p></section>
+          <section><h4><svg class="badge" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" class="s-ink" stroke-width="2.2" opacity="0.5"/></svg> Missing</h4><p>I know this matters, but I don't have the evidence yet.</p><p class="ex">"Impact on incident volume: not measured."</p><p class="next">Next: decide if it's worth measuring.</p></section>
+        </div>
+        <figcaption>Three labels. Every Inferred or Missing entry doubles as a to-do.</figcaption>
+      </figure>
+      <p>The labels do two things. They keep me honest when I write the entry, because I have to decide which bucket it belongs in. And they give me a to-do list. Every Inferred or Missing item is a question: Can I get the data? Should I ask someone? Is this worth measuring at all?</p>
+      <p>Over time, the ratio tells a story. If most of my entries are Inferred, I'm doing work whose impact I can't see, and that's worth fixing.</p>
+      <div class="lesson"><p><strong>Lesson:</strong> A claim without a confidence level is a claim waiting to be inflated.</p></div>
+
+      <h2>Never Take Credit for Team Work</h2>
+      <p>The second rule is simple: be precise about what you did versus what the team did.</p>
+      <p>That doesn't mean underselling yourself. It means writing entries like these:</p>
+      <figure>
+        <div class="compare">
+          <section class="weak"><h4>Inflated</h4><blockquote>Delivered the new alerting system.</blockquote><p class="note">Sounds big. Falls apart at the first follow-up question.</p></section>
+          <section class="strong"><h4>Precise</h4>
+            <blockquote>Proposed the design and wrote the first version; two teammates extended it to cover the remaining cases.</blockquote>
+            <blockquote>Led the review that found the gap; another engineer implemented the fix.</blockquote>
+            <blockquote>Coordinated the rollout across three teams; I didn't write the core change.</blockquote>
+            <p class="note">Shows judgment, collaboration and self-awareness, and holds up under questioning.</p></section>
+        </div>
+        <figcaption>Precise is stronger than big, not weaker.</figcaption>
+      </figure>
+      <p>Interviewers for senior roles often probe for exactly this: can you separate your contribution from your team's?</p>
+
+      <h2>What Goes in an Entry</h2>
+      <p>A good entry is short. Mine have five parts:</p>
+      <ul>
+        <li><strong>Date and a one-line summary.</strong></li>
+        <li><strong>What I did,</strong> in specific verbs: designed, wrote, reviewed, led, escalated, unblocked, decided.</li>
+        <li><strong>What happened as a result,</strong> with a label: Confirmed, Inferred or Missing.</li>
+        <li><strong>Evidence:</strong> where the proof lives. A link, a document title or a person who saw it.</li>
+        <li><strong>What it shows:</strong> the skill or behavior it demonstrates, such as technical depth, influence or delivery.</li>
+      </ul>
+      <p>That last field turns a log into a career tool. When I review the doc, I can see which skills have lots of evidence and which have almost none.</p>
+      <h3>Template</h3>
+      <p>Copy this and adapt it. Gergely Orosz's work log template is another good starting point. <a href="#ref-2">[2]</a></p>
+<pre class="template">## [Date]: [One-line summary]
+
+What I did:    [specific verbs, specific scope]
+Result:        [outcome] ([Confirmed / Inferred / Missing])
+Evidence:      [link, doc title or person]
+Team context:  [who else contributed and how]
+Shows:         [skill or behavior]</pre>
+
+      <h2>A Rhythm That Sticks</h2>
+      <p>The doc only works if you keep it current.</p>
+      <figure>
+        <svg viewBox="0 0 640 250" role="img" aria-labelledby="f4t">
+          <title id="f4t">A three-month timeline. Small dots every week: 15 minutes to add entries. Larger markers each month: an hour to upgrade Inferred entries, prune and look for gaps. A star at the end for review season: pull the strongest Confirmed entries.</title>
+          <line x1="50" y1="110" x2="590" y2="110" class="s-line" stroke-width="3"/>
+          <circle cx="60" cy="110" r="5" class="f-acc"/><circle cx="100" cy="110" r="5" class="f-acc"/><circle cx="140" cy="110" r="5" class="f-acc"/><circle cx="180" cy="110" r="5" class="f-acc"/><circle cx="220" cy="110" r="5" class="f-acc"/><circle cx="260" cy="110" r="5" class="f-acc"/><circle cx="300" cy="110" r="5" class="f-acc"/><circle cx="340" cy="110" r="5" class="f-acc"/><circle cx="380" cy="110" r="5" class="f-acc"/><circle cx="420" cy="110" r="5" class="f-acc"/><circle cx="460" cy="110" r="5" class="f-acc"/><circle cx="500" cy="110" r="5" class="f-acc"/><circle cx="540" cy="110" r="5" class="f-acc"/><rect x="168" y="96" width="24" height="28" rx="6" class="f-surface s-acc" stroke-width="2.5"/><rect x="328" y="96" width="24" height="28" rx="6" class="f-surface s-acc" stroke-width="2.5"/>
+          <path d="M560 86 l7 15 l16 2 l-12 11 l3 16 l-14 -8 l-14 8 l3 -16 l-12 -11 l16 -2 z" class="f-coin"/>
+          <text x="60" y="160" font-size="14" font-weight="700" class="t-ink">Weekly</text><text x="60" y="180" font-size="13" class="t-soft">15 min: add entries</text>
+          <text x="60" y="198" font-size="13" class="t-soft">while details are fresh</text>
+          <text x="260" y="160" font-size="14" font-weight="700" class="t-ink">Monthly</text><text x="260" y="180" font-size="13" class="t-soft">1 hour: upgrade Inferred,</text>
+          <text x="260" y="198" font-size="13" class="t-soft">prune, find the gaps</text>
+          <text x="590" y="160" text-anchor="end" font-size="14" font-weight="700" class="t-ink">Review season</text><text x="590" y="180" text-anchor="end" font-size="13" class="t-soft">pull the strongest</text>
+          <text x="590" y="198" text-anchor="end" font-size="13" class="t-soft">Confirmed entries</text>
+          <text x="50" y="66" font-size="13" class="t-soft">Friday afternoons work for me</text>
+        </svg>
+        <figcaption>A rhythm small enough to keep. The doc only works if it stays current.</figcaption>
+      </figure>
+      <p>I also keep a short summary on top: a one- or two-page snapshot of where I was, where I am and where I want to be, with a few concrete next actions. The detailed log backs it up. The snapshot is what I actually read.</p>
+
+      <h2>Turning It Outward Safely</h2>
+      <p>If you use your brag doc for a résumé, a professional profile or interviews, there's one more step: make it safe to share outside your company.</p>
+      <p>Internal project names, unreleased products, customer names and confidential numbers don't belong in public. Translate each entry into the pattern it represents.</p>
+      <figure>
+        <div class="compare">
+          <section class="weak" style="text-decoration:none"><h4>Internal note</h4><blockquote style="text-decoration:none"><span class="redact"></span> cut <span class="redact"></span>'s incident volume by <span class="redact" style="min-width:2em"></span>% before the <span class="redact"></span> launch.</blockquote><p class="note">Codename, customer, confidential number, unreleased product.</p></section>
+          <section class="strong"><h4>Safe to share</h4><blockquote>Built a system that detected a class of reliability issue and proposed fixes automatically.</blockquote><p class="note">The pattern, not the project. A number only if you can stand behind it publicly.</p></section>
+        </div>
+        <figcaption>Translate each entry into the pattern it represents before it leaves the building.</figcaption>
+      </figure>
+      <p>Use relative claims like "cut review time roughly in half" only if you can stand behind them, and leave numbers out if you can't share them.</p>
+      <div class="lesson"><p><strong>Lesson:</strong> A public claim that falls apart under one follow-up question costs more than it gains.</p></div>
+
+      <h2>Why Bother</h2>
+      <p>The real benefit isn't a better review or a stronger résumé, though you'll get both. It's that you end up with an accurate picture of your own work. You can see which bets paid off, which skills you're actually building and where your story has gaps. That's the information you need to decide what to work on next.</p>
+      <p class="closing">A brag doc that inflates feels good for a week. One that tells the truth is useful for years.</p>
+
+      <h2>References</h2>
+      <ol class="refs">
+        <li id="ref-1">Julia Evans, <a href="https://jvns.ca/blog/brag-documents/" target="_blank" rel="noopener">Get your work recognized: write a brag document</a>.</li>
+        <li id="ref-2">Gergely Orosz, <a href="https://blog.pragmaticengineer.com/work-log-template-for-software-engineers/" target="_blank" rel="noopener">A Work Log Template for Software Engineers</a>, The Pragmatic Engineer.</li>
+      </ol>
+    </article>
+
+    <footer>
+      <a href="../">&larr; Back to Jeremiah Walters</a> &middot;
+      <a href="https://www.linkedin.com/in/jeremiahwalters" target="_blank" rel="noopener">LinkedIn</a> &middot;
+      <a href="https://github.com/jtwalters25" target="_blank" rel="noopener">GitHub</a>
+    </footer>
+  </body>
+</html>
