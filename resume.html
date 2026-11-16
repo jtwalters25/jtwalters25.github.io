@@ -341,17 +341,6 @@
         .takeaway strong { color: var(--blue-bright); }
       }
 
-      .work-item { padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--sheet-line); }
-      .work-item:last-of-type { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
-      .work-name { font-size: 1.06rem; font-weight: 700; line-height: 1.35; }
-      .work-name .repo-slug { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.98rem; font-weight: 600; color: var(--sheet-ink-soft); }
-      .work-desc { margin: 0.5rem 0 0; font-size: 0.99rem; line-height: 1.65; color: var(--sheet-ink-soft); }
-      .work-links { display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; margin-top: 0.7rem; font-size: 0.93rem; }
-      .work-links a { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2rem; padding: 0.2rem 0; font-weight: 600; text-decoration: none; border-bottom: 1px solid transparent; }
-      .work-links a:hover { border-bottom-color: var(--blue); text-decoration: none; }
-      @media (prefers-color-scheme: dark) { .work-links a:hover { border-bottom-color: var(--blue-bright); } }
-      .work-more { margin: 1.4rem 0 0; padding-top: 1.15rem; border-top: 1px solid var(--sheet-line); font-size: 0.97rem; line-height: 1.6; color: var(--sheet-ink-soft); }
-      .work-more a { font-weight: 600; }
 
       .edu-item { margin-bottom: 1.35rem; }
       .edu-item:last-child { margin-bottom: 0; }
@@ -398,10 +387,53 @@
       }
       .proud-item a { font-weight: 600; }
 
-      /* how I work */
-      .how-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.7rem; }
-      .how-list li { padding-left: 0.8rem; border-left: 3px solid var(--chip-line); font-size: 0.95rem; line-height: 1.5; color: var(--sheet-ink-soft); }
-      .how-list strong { color: var(--sheet-ink); }
+      .more-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin: 0; }
+      .more-links a { font-weight: 600; }
+      @media (prefers-color-scheme: dark) { .more-links a { color: var(--blue-bright); } }
+
+      /* donut */
+      .donut-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+      }
+      .donut-wrap svg { flex: none; width: 168px; height: 168px; }
+      .donut-seg { transition: opacity 0.18s ease; cursor: pointer; }
+      .donut-legend {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 0.9rem;
+        line-height: 1.35;
+      }
+      .donut-legend li {
+        display: flex;
+        align-items: baseline;
+        gap: 0.55rem;
+        padding: 0.34rem 0.3rem;
+        min-height: 2rem;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .donut-legend .dot {
+        flex: none;
+        width: 0.72rem;
+        height: 0.72rem;
+        border-radius: 2px;
+        transform: translateY(1px);
+      }
+      .donut-legend .txt { display: flex; flex-direction: column; gap: 0.15rem; }
+      .donut-legend .name { color: var(--sheet-ink); }
+      .donut-legend .desc { color: var(--sheet-ink-soft); }
+      .dim .donut-seg, .dim li { opacity: 0.28; }
+      .dim .donut-seg.lit, .dim li.lit { opacity: 1; }
+      .fineprint {
+        margin: 0.9rem 0 0;
+        font-size: 0.82rem;
+        font-style: italic;
+        color: var(--sheet-ink-soft);
+      }
 
       .attr-group { margin-bottom: 1.5rem; }
       .attr-group:last-child { margin-bottom: 0; }
@@ -475,9 +507,13 @@
         .stat { padding: 1.6rem 1rem 1.2rem; }
         .stat + .stat { border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.28); }
         .hero-main { flex-direction: column-reverse; gap: 1.75rem; }
+        .donut-wrap { flex-direction: column; align-items: flex-start; }
+        .donut-wrap svg { align-self: center; width: 190px; height: 190px; }
+        .donut-legend { width: 100%; }
       }
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
+        .donut-seg { transition: none; }
       }
       @media print {
         .topbar { display: none; }
@@ -629,87 +665,12 @@
             </div>
           </section>
 
-          <section class="block" aria-labelledby="work-h">
-            <h3 class="sec" id="work-h">Selected Work</h3>
-
-            <div class="work-item">
-              <div class="work-name">failure-lab <span class="repo-slug">jtwalters25/failure-lab</span></div>
-              <p class="work-desc">A retry-storm simulator plus hand-reviewed scanner findings for retry anti-patterns in public code. The eval-first method, in miniature.</p>
-              <div class="work-links">
-                <a href="https://github.com/jtwalters25/failure-lab" target="_blank" rel="noopener">Repository <span aria-hidden="true">&#8599;</span></a>
-                <a href="https://failure-lab.vercel.app" target="_blank" rel="noopener">Live demo <span aria-hidden="true">&#8599;</span></a>
-              </div>
-            </div>
-
-            <div class="work-item">
-              <div class="work-name">intent-engine <span class="repo-slug">jtwalters25/intent-engine</span></div>
-              <p class="work-desc">Deterministic, explainable intent-aware re-ranking: same catalog, different intent, different order, across streaming, music, e-commerce, ride matching, and food delivery.</p>
-              <div class="work-links">
-                <a href="https://github.com/jtwalters25/intent-engine" target="_blank" rel="noopener">Repository <span aria-hidden="true">&#8599;</span></a>
-              </div>
-            </div>
-
-            <div class="work-item">
-              <div class="work-name">clause <span class="repo-slug">jtwalters25/clause</span></div>
-              <p class="work-desc">Contract-clause intelligence: semantic clause-vs-playbook matching with calibrated STANDARD / REVIEW / BLOCK verdicts and an automated canary gate for safe rollouts.</p>
-              <div class="work-links">
-                <a href="https://github.com/jtwalters25/clause" target="_blank" rel="noopener">Repository <span aria-hidden="true">&#8599;</span></a>
-              </div>
-            </div>
-
-            <div class="work-item">
-              <div class="work-name">readiness-as-code <span class="repo-slug">jtwalters25/readiness-as-code</span></div>
-              <p class="work-desc">Continuous review compliance as a folder in your repo: JSON definitions, a Python scanner, and a CI template. No infrastructure, no SaaS.</p>
-              <div class="work-links">
-                <a href="https://github.com/jtwalters25/readiness-as-code" target="_blank" rel="noopener">Repository <span aria-hidden="true">&#8599;</span></a>
-              </div>
-            </div>
-
-            <p class="work-more">More on GitHub: <a href="https://github.com/jtwalters25" target="_blank" rel="noopener">github.com/jtwalters25</a></p>
-          </section>
-
-          <section class="block" aria-labelledby="writing-h">
-            <h3 class="sec" id="writing-h">Writing</h3>
-
-            <div class="work-item">
-              <div class="work-name">Keep a Brag Doc That Doesn't Lie</div>
-              <p class="work-desc">Every claim labeled Confirmed, Inferred or Missing. Precise credit instead of inflated credit, a weekly rhythm, and how to make it safe to share outside your company.</p>
-              <div class="work-links">
-                <a href="writing/brag-doc-that-doesnt-lie.html">Read the article <span aria-hidden="true">&#8594;</span></a>
-              </div>
-            </div>
-
-            <div class="work-item">
-              <div class="work-name">The Senior&#8209;to&#8209;Principal Gap: It's Not More Code</div>
-              <p class="work-desc">Notes from the middle of the climb: problems over tasks, multiplying others, why impact has a blast radius, and strategy you can explain in a paragraph.</p>
-              <div class="work-links">
-                <a href="writing/senior-to-principal.html">Read the article <span aria-hidden="true">&#8594;</span></a>
-              </div>
-            </div>
-
-            <div class="work-item">
-              <div class="work-name">Leading a Team Without Being Anyone's Manager</div>
-              <p class="work-desc">Outcomes without authority, and without becoming the janitor. What a lead actually owns, influence without authority, nudges instead of nagging, and telling the truth upward.</p>
-              <div class="work-links">
-                <a href="writing/leading-without-managing.html">Read the article <span aria-hidden="true">&#8594;</span></a>
-              </div>
-            </div>
-
-            <div class="work-item">
-              <div class="work-name">Validate the Slice, Not the Vision</div>
-              <p class="work-desc">Big ideas are cheap now. Proof still isn't. What a slice actually is, three that taught me something, and when slicing is the wrong call.</p>
-              <div class="work-links">
-                <a href="writing/validate-the-slice.html">Read the article <span aria-hidden="true">&#8594;</span></a>
-              </div>
-            </div>
-
-            <div class="work-item">
-              <div class="work-name">When AI Agents Cost More Than the Work They Automate</div>
-              <p class="work-desc">Field notes from a failed attempt to make an engineering workflow agentic: a coordinator that spent its whole budget before the A/B test started, why reusing existing skills beat adding agents, and a rule change that passed every test but found nothing in real repos.</p>
-              <div class="work-links">
-                <a href="writing/when-ai-agents-cost-more.html">Read the article <span aria-hidden="true">&#8594;</span></a>
-              </div>
-            </div>
+          <section class="block" aria-labelledby="more-h">
+            <h3 class="sec" id="more-h">Projects &amp; Writing</h3>
+            <p class="more-links">
+              <a href="index.html#projects">See the projects I've built &#8599;</a>
+              <a href="index.html#writing">Read my writing &#8599;</a>
+            </p>
           </section>
 
           <section class="block" aria-labelledby="edu-h">
@@ -773,14 +734,12 @@
             </div>
           </section>
 
-          <section class="block" aria-labelledby="how-h">
-            <h3 class="sec" id="how-h">How I Work</h3>
-            <ul class="how-list">
-              <li><strong>Set direction.</strong> Turn recurring outage themes into what the team builds next, and make the trends visible to leadership.</li>
-              <li><strong>Make it happen.</strong> Early triage, clear owners, and nothing ships until its false positive rate is reviewed with the teams it affects.</li>
-              <li><strong>Raise the bar.</strong> Engineers defend their rules before they ship. Reliability guidance stays current company-wide.</li>
-              <li><strong>Stay hands-on.</strong> Detection rules, a company-wide reliability dashboard built solo, and UX for an AI risk-analysis agent.</li>
-            </ul>
+          <section class="block" aria-labelledby="time-h">
+            <h3 class="sec" id="time-h">How I Work</h3>
+            <div class="donut-wrap" id="donutWrap">
+              <svg id="donut" viewBox="0 0 200 200" role="img" aria-label="Donut chart of how Jeremiah works, in four parts: set direction, make it happen, raise the bar, and stay hands-on."></svg>
+              <ul class="donut-legend" id="donutLegend"></ul>
+            </div>
           </section>
 
           <section class="block" aria-labelledby="attr-h">
@@ -829,5 +788,98 @@
       </div>
     </footer>
 
+    <script>
+      (function () {
+        // Donut: the four parts of how I work. Equal parts, not measured time.
+        var data = [
+          { name: "Set direction", desc: "Turn recurring outage themes into what the team builds next, and make the trends visible to leadership.", pct: 25, color: "#4c1d95" },
+          { name: "Make it happen", desc: "Early triage, clear owners, and nothing ships until its false positive rate is reviewed with the teams it affects.", pct: 25, color: "#7c3aed" },
+          { name: "Raise the bar", desc: "Engineers defend their rules before they ship. Reliability guidance stays current company-wide.", pct: 25, color: "#a78bfa" },
+          { name: "Stay hands-on", desc: "Detection rules, a company-wide reliability dashboard built solo, and UX for an AI risk-analysis agent.", pct: 25, color: "#c4b5fd" }
+        ];
+        var svg = document.getElementById("donut");
+        var legend = document.getElementById("donutLegend");
+        var wrap = document.getElementById("donutWrap");
+        var NS = "http://www.w3.org/2000/svg";
+        var cx = 100, cy = 100, r = 82, sw = 30;
+        var circ = 2 * Math.PI * r;
+        var acc = 0;
+        var gap = 1.6; // degrees of breathing room between segments
+
+        function polar(angleDeg, radius) {
+          var a = (angleDeg - 90) * Math.PI / 180;
+          return [cx + radius * Math.cos(a), cy + radius * Math.sin(a)];
+        }
+        function arcPath(start, end, radius) {
+          var s = polar(start, radius), e = polar(end, radius);
+          var large = (end - start) > 180 ? 1 : 0;
+          return "M " + s[0].toFixed(2) + " " + s[1].toFixed(2) +
+                 " A " + radius + " " + radius + " 0 " + large + " 1 " +
+                 e[0].toFixed(2) + " " + e[1].toFixed(2);
+        }
+
+        var segs = [], items = [];
+        data.forEach(function (d, i) {
+          var sweep = d.pct / 100 * 360;
+          var path = document.createElementNS(NS, "path");
+          path.setAttribute("d", arcPath(acc + gap / 2, acc + sweep - gap / 2, r));
+          path.setAttribute("fill", "none");
+          path.setAttribute("stroke", d.color);
+          path.setAttribute("stroke-width", sw);
+          path.setAttribute("class", "donut-seg");
+          path.setAttribute("data-i", i);
+          svg.appendChild(path);
+          segs.push(path);
+
+          var li = document.createElement("li");
+          li.setAttribute("data-i", i);
+          li.setAttribute("tabindex", "0");
+          li.innerHTML = '<span class="dot" style="background:' + d.color + '"></span>' +
+                         '<span class="txt"><strong class="name"></strong><span class="desc"></span></span>';
+          li.querySelector(".name").textContent = d.name;
+          li.querySelector(".desc").textContent = d.desc;
+          legend.appendChild(li);
+          items.push(li);
+          acc += sweep;
+        });
+
+        var center = document.createElementNS(NS, "text");
+        center.setAttribute("x", cx);
+        center.setAttribute("y", cy - 4);
+        center.setAttribute("text-anchor", "middle");
+        center.setAttribute("font-size", "15");
+        center.setAttribute("font-weight", "700");
+        center.setAttribute("fill", "currentColor");
+        center.textContent = "How I";
+        svg.appendChild(center);
+        var center2 = document.createElementNS(NS, "text");
+        center2.setAttribute("x", cx);
+        center2.setAttribute("y", cy + 15);
+        center2.setAttribute("text-anchor", "middle");
+        center2.setAttribute("font-size", "15");
+        center2.setAttribute("font-weight", "700");
+        center2.setAttribute("fill", "currentColor");
+        center2.textContent = "work";
+        svg.appendChild(center2);
+
+        function light(i) {
+          wrap.classList.add("dim");
+          segs.forEach(function (s, j) { s.classList.toggle("lit", String(j) === String(i)); });
+          items.forEach(function (li, j) { li.classList.toggle("lit", String(j) === String(i)); });
+        }
+        function unlight() {
+          wrap.classList.remove("dim");
+          segs.forEach(function (s) { s.classList.remove("lit"); });
+          items.forEach(function (li) { li.classList.remove("lit"); });
+        }
+        items.concat(segs).forEach(function (el) {
+          var i = el.getAttribute("data-i");
+          el.addEventListener("mouseenter", function () { light(i); });
+          el.addEventListener("mouseleave", unlight);
+          el.addEventListener("focus", function () { light(i); });
+          el.addEventListener("blur", unlight);
+        });
+      })();
+    </script>
   </body>
 </html>
