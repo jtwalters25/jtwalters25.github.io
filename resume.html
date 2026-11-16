@@ -320,12 +320,14 @@
 
       .role { padding-bottom: 2rem; margin-bottom: 2rem; border-bottom: 1px solid var(--sheet-line); }
       .role:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
-      .role-desc {
+      .role-bullets {
         margin: 0.85rem 0 0;
+        padding-left: 1.15rem;
         font-size: 1rem;
-        line-height: 1.65;
+        line-height: 1.6;
         color: var(--sheet-ink-soft);
       }
+      .role-bullets li { margin: 0.4rem 0; }
       .takeaway {
         margin: 0.85rem 0 0;
         padding-left: 1rem;
@@ -616,13 +618,15 @@
                 <li>Cross-Team Delivery</li>
                 <li>Roadmaps &amp; Milestones</li>
               </ul>
-              <p class="role-desc">
-                Leads delivery for a program of 10+ engineers across squads building an AI-powered
-                risk-analysis agent platform used daily by Azure engineering and SRE leadership. Writes
-                scanner rules for throttling and retry anti-patterns, and builds evaluation workflows so
-                agent output is verified before it is trusted — technical program leadership across
-                squads as much as hands-on engineering.
-              </p>
+              <ul class="role-bullets">
+                <li>Lead the Baselines Thematics squad as we onboard a new rule engine to the company's internal code-scanning platform; I own the throttling scanner and rules work, setting priorities and technical direction while writing code.</li>
+                <li>Own delivery for a program of 10+ engineers: lead design reviews, unblock cross-team dependencies, and keep delivery on track across two workstreams.</li>
+                <li>Write static-analysis rules, run in code-scanning pipelines, that detect throttling anti-patterns (bad 429 handling, thread sleeps, unsafe retry policies) across Microsoft's repositories; review findings by hand and tune the rules with the team.</li>
+                <li>Lead the team building the SRE risk agent, an AI-powered risk-analysis platform used by Azure engineering leadership and SRE teams: React/TypeScript frontend, Python and .NET services, REST APIs and Azure OpenAI agent orchestration. I set the platform's direction and contribute code across the stack.</li>
+                <li>Partner with incident response teams on outages and RCAs to find recurring, high-blast-radius risks and convert them into automated checks. Throttling was the first anti-pattern; service retirement is next.</li>
+                <li>Built KQL and Power BI dashboards on telemetry pipelines that tie outages to throttling by service and over time, and co-maintain Microsoft's throttling best practices with the Azure throttling service team.</li>
+                <li>Created a custom skill family for the GitHub Copilot CLI agent harness automating recurring Azure DevOps reporting, plus a framework making cross-team dependency status self-serve; both adopted by the team.</li>
+              </ul>
               <ul class="role-metrics" aria-label="Quantified results in current role">
                 <li><strong>8</strong> static-analysis scanners / scanner rules in production pipelines</li>
                 <li><strong>253</strong> audited detections at a <strong>91.7%</strong> true-positive rate</li>
@@ -634,32 +638,28 @@
             <div class="role">
               <div class="role-title">Cloud Engineer, FastTrack for Azure</div>
               <div class="role-meta">Microsoft &nbsp;|&nbsp; Jun 2022 – Nov 2024</div>
-              <p class="role-desc">
-                Technical lead for enterprise engineering teams on complex production issues across
-                compute, networking, storage, and data, through to resolution. Built knowledge bases and
-                best-practice guides that scaled across a large customer base, and turned recurring pain
-                points into prioritized tooling improvements with product and engineering teams.
-              </p>
+              <ul class="role-bullets">
+                <li>Led enterprise engineering teams through complex production issues across compute, networking, storage and data, from triage through resolution.</li>
+                <li>Co-authored knowledge bases and best-practice guides that scaled support across a large customer base, and worked with product and engineering to turn recurring pain points into prioritized tooling improvements.</li>
+              </ul>
               <p class="takeaway"><strong>Key takeaway:</strong> Enterprise problems get solved in rooms before they get solved in code. Align the people, then fix the system.</p>
             </div>
 
             <div class="role">
               <div class="role-title">Azure Cloud Engineer</div>
               <div class="role-meta">Microsoft (Azure Customer Engineering) &nbsp;|&nbsp; Jul 2018 – Jun 2022</div>
-              <p class="role-desc">
-                Diagnosed and resolved global production incidents in distributed customer workloads,
-                and fed recurring patterns back to engineering to prevent recurrence.
-              </p>
+              <ul class="role-bullets">
+                <li>Worked with customers and engineering teams to diagnose and resolve 100+ global production incidents in distributed workloads, feeding recurring failure patterns back to engineering to prevent recurrence.</li>
+              </ul>
               <p class="takeaway"><strong>Key takeaway:</strong> Reproduce it, isolate it, prove the fix. If it keeps happening, it is a pattern, not an incident.</p>
             </div>
 
             <div class="role">
               <div class="role-title">Frontend / Full-Stack Developer</div>
               <div class="role-meta">Mercutio (ecommerce agency) &nbsp;|&nbsp; Apr 2017 – Feb 2018</div>
-              <p class="role-desc">
-                Built full-stack ecommerce experiences in JavaScript for outdoor and specialty retail:
-                discovery, cart, checkout, authentication, and account management.
-              </p>
+              <ul class="role-bullets">
+                <li>Developed full-stack ecommerce experiences in JavaScript as part of a small agency team: product discovery, cart, checkout, authentication and account management for retail clients.</li>
+              </ul>
               <p class="takeaway"><strong>Key takeaway:</strong> Done and live beats perfect and planned. Real customers on real deadlines teach you what shipping means.</p>
             </div>
           </section>
