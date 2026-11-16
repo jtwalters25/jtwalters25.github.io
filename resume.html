@@ -398,47 +398,10 @@
       }
       .proud-item a { font-weight: 600; }
 
-      /* donut */
-      .donut-wrap {
-        display: flex;
-        align-items: center;
-        gap: 1.4rem;
-      }
-      .donut-wrap svg { flex: none; width: 168px; height: 168px; }
-      .donut-seg { transition: opacity 0.18s ease; cursor: pointer; }
-      .donut-legend {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        font-size: 0.9rem;
-        line-height: 1.35;
-      }
-      .donut-legend li {
-        display: flex;
-        align-items: baseline;
-        gap: 0.55rem;
-        padding: 0.34rem 0.3rem;
-        min-height: 2rem;
-        cursor: pointer;
-        border-radius: 4px;
-      }
-      .donut-legend .dot {
-        flex: none;
-        width: 0.72rem;
-        height: 0.72rem;
-        border-radius: 2px;
-        transform: translateY(1px);
-      }
-      .donut-legend .pct { margin-left: auto; padding-left: 0.75rem; font-weight: 700; color: var(--sheet-ink); }
-      .donut-legend .name { color: var(--sheet-ink-soft); }
-      .dim .donut-seg, .dim li { opacity: 0.28; }
-      .dim .donut-seg.lit, .dim li.lit { opacity: 1; }
-      .fineprint {
-        margin: 0.9rem 0 0;
-        font-size: 0.82rem;
-        font-style: italic;
-        color: var(--sheet-ink-soft);
-      }
+      /* how I work */
+      .how-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.7rem; }
+      .how-list li { padding-left: 0.8rem; border-left: 3px solid var(--chip-line); font-size: 0.95rem; line-height: 1.5; color: var(--sheet-ink-soft); }
+      .how-list strong { color: var(--sheet-ink); }
 
       .attr-group { margin-bottom: 1.5rem; }
       .attr-group:last-child { margin-bottom: 0; }
@@ -512,13 +475,9 @@
         .stat { padding: 1.6rem 1rem 1.2rem; }
         .stat + .stat { border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.28); }
         .hero-main { flex-direction: column-reverse; gap: 1.75rem; }
-        .donut-wrap { flex-direction: column; align-items: flex-start; }
-        .donut-wrap svg { align-self: center; width: 190px; height: 190px; }
-        .donut-legend { width: 100%; }
       }
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
-        .donut-seg { transition: none; }
       }
       @media print {
         .topbar { display: none; }
@@ -814,13 +773,14 @@
             </div>
           </section>
 
-          <section class="block" aria-labelledby="time-h">
-            <h3 class="sec" id="time-h">How I Structure My Time</h3>
-            <div class="donut-wrap" id="donutWrap">
-              <svg id="donut" viewBox="0 0 200 200" role="img" aria-label="Donut chart of how Jeremiah structures his time: building the platform, program leadership and delivery, reviewing agent output, and incident work."></svg>
-              <ul class="donut-legend" id="donutLegend"></ul>
-            </div>
-            <p class="fineprint">Illustrative split, not measured data. The order, though, is honest.</p>
+          <section class="block" aria-labelledby="how-h">
+            <h3 class="sec" id="how-h">How I Work</h3>
+            <ul class="how-list">
+              <li><strong>Set direction.</strong> Turn recurring outage themes into what the team builds next, and make the trends visible to leadership.</li>
+              <li><strong>Make it happen.</strong> Early triage, clear owners, and nothing ships until its false positive rate is reviewed with the teams it affects.</li>
+              <li><strong>Raise the bar.</strong> Engineers defend their rules before they ship. Reliability guidance stays current company-wide.</li>
+              <li><strong>Stay hands-on.</strong> Detection rules, a company-wide reliability dashboard built solo, and UX for an AI risk-analysis agent.</li>
+            </ul>
           </section>
 
           <section class="block" aria-labelledby="attr-h">
@@ -869,98 +829,5 @@
       </div>
     </footer>
 
-    <script>
-      (function () {
-        // Donut: qualitative, illustrative split of a typical week.
-        var data = [
-          { name: "Building the platform", pct: 34, color: "#5b21b6" },
-          { name: "Reviewing agent output & tuning evals", pct: 24, color: "#7c3aed" },
-          { name: "Incident & outage pattern work", pct: 18, color: "#a78bfa" },
-          { name: "Program leadership, planning & delivery", pct: 24, color: "#c4b5fd" }
-        ];
-        var svg = document.getElementById("donut");
-        var legend = document.getElementById("donutLegend");
-        var wrap = document.getElementById("donutWrap");
-        var NS = "http://www.w3.org/2000/svg";
-        var cx = 100, cy = 100, r = 82, sw = 30;
-        var circ = 2 * Math.PI * r;
-        var acc = 0;
-        var gap = 1.6; // degrees of breathing room between segments
-
-        function polar(angleDeg, radius) {
-          var a = (angleDeg - 90) * Math.PI / 180;
-          return [cx + radius * Math.cos(a), cy + radius * Math.sin(a)];
-        }
-        function arcPath(start, end, radius) {
-          var s = polar(start, radius), e = polar(end, radius);
-          var large = (end - start) > 180 ? 1 : 0;
-          return "M " + s[0].toFixed(2) + " " + s[1].toFixed(2) +
-                 " A " + radius + " " + radius + " 0 " + large + " 1 " +
-                 e[0].toFixed(2) + " " + e[1].toFixed(2);
-        }
-
-        var segs = [], items = [];
-        data.forEach(function (d, i) {
-          var sweep = d.pct / 100 * 360;
-          var path = document.createElementNS(NS, "path");
-          path.setAttribute("d", arcPath(acc + gap / 2, acc + sweep - gap / 2, r));
-          path.setAttribute("fill", "none");
-          path.setAttribute("stroke", d.color);
-          path.setAttribute("stroke-width", sw);
-          path.setAttribute("class", "donut-seg");
-          path.setAttribute("data-i", i);
-          svg.appendChild(path);
-          segs.push(path);
-
-          var li = document.createElement("li");
-          li.setAttribute("data-i", i);
-          li.setAttribute("tabindex", "0");
-          li.innerHTML = '<span class="dot" style="background:' + d.color + '"></span>' +
-                         '<span class="name"></span>' +
-                         '<span class="pct">' + d.pct + '%</span>';
-          li.querySelector(".name").textContent = d.name;
-          legend.appendChild(li);
-          items.push(li);
-          acc += sweep;
-        });
-
-        var center = document.createElementNS(NS, "text");
-        center.setAttribute("x", cx);
-        center.setAttribute("y", cy - 4);
-        center.setAttribute("text-anchor", "middle");
-        center.setAttribute("font-size", "15");
-        center.setAttribute("font-weight", "700");
-        center.setAttribute("fill", "currentColor");
-        center.textContent = "The week,";
-        svg.appendChild(center);
-        var center2 = document.createElementNS(NS, "text");
-        center2.setAttribute("x", cx);
-        center2.setAttribute("y", cy + 15);
-        center2.setAttribute("text-anchor", "middle");
-        center2.setAttribute("font-size", "15");
-        center2.setAttribute("font-weight", "700");
-        center2.setAttribute("fill", "currentColor");
-        center2.textContent = "roughly";
-        svg.appendChild(center2);
-
-        function light(i) {
-          wrap.classList.add("dim");
-          segs.forEach(function (s, j) { s.classList.toggle("lit", String(j) === String(i)); });
-          items.forEach(function (li, j) { li.classList.toggle("lit", String(j) === String(i)); });
-        }
-        function unlight() {
-          wrap.classList.remove("dim");
-          segs.forEach(function (s) { s.classList.remove("lit"); });
-          items.forEach(function (li) { li.classList.remove("lit"); });
-        }
-        items.concat(segs).forEach(function (el) {
-          var i = el.getAttribute("data-i");
-          el.addEventListener("mouseenter", function () { light(i); });
-          el.addEventListener("mouseleave", unlight);
-          el.addEventListener("focus", function () { light(i); });
-          el.addEventListener("blur", unlight);
-        });
-      })();
-    </script>
   </body>
 </html>
