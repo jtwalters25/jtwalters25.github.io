@@ -53,6 +53,11 @@
       .hero h1 { margin: 1.4rem 0 0.5rem; font-family: var(--serif); font-weight: 600; font-size: clamp(2.4rem, 7vw, 3.4rem); line-height: 1.05; }
       .lead { margin: 0 auto 0.6rem; max-width: 36rem; font-size: 1.3rem; font-weight: 600; line-height: 1.4; color: var(--ink); }
       .tagline { margin: 0; font-size: 1.05rem; color: var(--ink-soft); }
+      .about-intro { margin: -0.5rem 0 1.25rem; max-width: 42rem; font-size: 1.1rem; line-height: 1.6; color: var(--ink-soft); }
+      .about-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.25rem 0 0; }
+      .btn { display: inline-block; padding: 0.6rem 1.1rem; border-radius: 8px; background: var(--ring); color: #fff; font-weight: 600; text-decoration: none; }
+      .btn:hover { filter: brightness(1.1); }
+      .btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--ring); }
       .how { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
       .how li { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.15rem 1.25rem; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--ring); border-radius: 12px; }
       .how h3 { margin: 0; font-size: 1.15rem; }
@@ -111,8 +116,8 @@
       <nav class="nav" aria-label="Main">
         <a class="brand" href="./">Jeremiah Walters</a>
         <ul>
-          <li><a href="#how">How I work</a></li>
           <li><a href="#writing">Writing</a></li>
+          <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="resume.html">Resume</a></li>
         </ul>
@@ -130,32 +135,6 @@
         </ul>
         <p class="motto">Intent before intelligence. Field notes on AI agents, reliability, and building for what people actually need. Slow is smooth, smooth is fast.</p>
       </header>
-
-      <section id="how" aria-labelledby="how-h">
-        <h2 id="how-h">How I work</h2>
-        <ul class="how">
-          <li>
-            <h3>Set direction</h3>
-            <p>I turn recurring outage themes into the checks my team builds next, and make the trends visible to leadership so priorities rest on evidence.</p>
-            <a href="writing/senior-to-principal.html">On impact and blast radius</a>
-          </li>
-          <li>
-            <h3>Make it happen</h3>
-            <p>I lead delivery for a program of engineers: early triage, clear owners, and nothing ships until its false positive rate is reviewed with the teams it affects.</p>
-            <a href="writing/leading-without-managing.html">On leading without managing</a>
-          </li>
-          <li>
-            <h3>Raise the bar</h3>
-            <p>I run working sessions where engineers defend their rules before they ship, and help maintain company-wide reliability guidance.</p>
-            <a href="writing/validate-the-slice.html">On validating before trusting</a>
-          </li>
-          <li>
-            <h3>Stay hands-on</h3>
-            <p>I write detection rules, built a company-wide reliability dashboard on my own, and lead UX on an AI risk-analysis agent.</p>
-            <a href="#projects">Things I've built</a>
-          </li>
-        </ul>
-      </section>
 
       <section id="writing" aria-labelledby="writing-h">
         <h2 id="writing-h">Latest writing</h2>
@@ -237,6 +216,34 @@
             </a>
           </li>
         </ul>
+      </section>
+
+      <section id="about" aria-labelledby="about-h">
+        <h2 id="about-h">About me</h2>
+        <p class="about-intro">Ten years behind a bar taught me to read what people actually need. Eight years at Microsoft taught me to build for it. Here's how I work.</p>
+        <ul class="how">
+          <li>
+            <h3>Set direction</h3>
+            <p>I turn recurring outage themes into the checks my team builds next, and make the trends visible to leadership so priorities rest on evidence.</p>
+            <a href="writing/senior-to-principal.html">On impact and blast radius</a>
+          </li>
+          <li>
+            <h3>Make it happen</h3>
+            <p>I lead delivery for a program of engineers: early triage, clear owners, and nothing ships until its false positive rate is reviewed with the teams it affects.</p>
+            <a href="writing/leading-without-managing.html">On leading without managing</a>
+          </li>
+          <li>
+            <h3>Raise the bar</h3>
+            <p>I run working sessions where engineers defend their rules before they ship, and help maintain company-wide reliability guidance.</p>
+            <a href="writing/validate-the-slice.html">On validating before trusting</a>
+          </li>
+          <li>
+            <h3>Stay hands-on</h3>
+            <p>I write detection rules, built a company-wide reliability dashboard on my own, and lead UX on an AI risk-analysis agent.</p>
+            <a href="#projects">Things I've built</a>
+          </li>
+        </ul>
+        <p class="about-links"><a class="btn" href="resume.html">View my resume</a><a class="btn ghost" href="Jeremiah_Walters_Resume.pdf" download>Download PDF</a></p>
       </section>
 
       <section id="projects" aria-labelledby="projects-h">
